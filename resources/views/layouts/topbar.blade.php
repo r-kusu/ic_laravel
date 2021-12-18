@@ -1,9 +1,6 @@
 @section('topbar')
 
 <h1>在庫管理システム</h1>
-
-<table>
-<tr>
 <th>日用品</th>
 <th>食料品</th>
 <th>書籍</th>

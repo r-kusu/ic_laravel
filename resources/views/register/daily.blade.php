@@ -5,16 +5,19 @@
 @include("layouts.topbar")
 
 @section("content")
-<h1>在庫管理システム</h1>
 
 <table>
 <tr>
-<th>日用品</th>
-<th>食料品</th>
-<th>書籍</th>
-<th>買い物リスト</th>
-<th>追加アイコン</th>
-<th>ハンバーガー</th>
+<th>商品画像</th>
+<th>ファイルを選択</th>
+<th>商品名</th>
+<th>ジャンル</th>
+<th>残り個数</th>
+<th>規定数</th>
+<th>使用場所</th>
+<th>保管場所</th>
+<th>購入場所</th>
+<th>保存</th>
 </tr>
 
 {{-- @foreach($members as $member)
