@@ -20,3 +20,10 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/daily',[App\Http\Controllers\DailyController::class, 'index']);
+
+
+Route::get('/makeup',function () {
+    return view('register.makeup');
+});
