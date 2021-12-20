@@ -18,7 +18,7 @@ class CreateItemsTable extends Migration
             $table->integer('user_id')->unsigned()->index();
             $table->string('name'); 
             $table->string('image_name');
-            $table->string('stock'); 
+            $table->integer('stock'); 
             $table->string('threshold'); 
             $table->timestamps();
         });
