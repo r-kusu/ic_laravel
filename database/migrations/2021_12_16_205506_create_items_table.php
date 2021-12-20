@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateIsTable extends Migration
+class CreateItemsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,13 @@ class CreateIsTable extends Migration
      */
     public function up()
     {
-        Schema::create('ics', function (Blueprint $table) {
-            $table->id();
+        Schema::create('items', function (Blueprint $table) {
+            $table->increments('id'); 
+            $table->integer('user_id')->unsigned()->index();
+            $table->string('name'); 
+            $table->string('image_name');
+            $table->integer('stock'); 
+            $table->string('threshold'); 
             $table->timestamps();
         });
     }
@@ -26,6 +31,6 @@ class CreateIsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ics');
+        Schema::dropIfExists('items');
     }
 }
