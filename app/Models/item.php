@@ -5,15 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class IC extends Model
+class item extends Model
 {
     use HasFactory;
-    protected $table = 'ICs';
+    protected $table = 'items';
     protected $fillable = [
         'id',
+        'user_id',
         'name',
-        'email',
-        'password',
+        'image_name',
+        'stock',
+        'threshold',
         'updated_at',
         'created_at',
         ];
