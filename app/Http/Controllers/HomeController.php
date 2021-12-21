@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class HomeController extends Controller
 {
@@ -18,11 +19,18 @@ class HomeController extends Controller
 
     /**
      * Show the application dashboard.
+     * 一覧画面
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        return view('home');
+        // // categoriesテーブルからkey,valueを$categoriesに格納
+        // $categories=DB::table('categories')
+        // ->select('key','value')
+        // ->get();
+
+        // viewを返す(compactでviewに$categoriesを渡す)
+        return view('register/index',compact('categories'));
     }
 }

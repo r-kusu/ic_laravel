@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\HTTP\Controllers\HomeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,9 +16,20 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('register/index', function () {
+    return view('register.index');
+});
+Route::get('register/list', function () {
+    return view('register.list');
+});
 
-Auth::routes();
 
+// Route::group(['plefix'=>'register'],function(){
+//     Route::get('/index',[HomeController::class, 'index'])->name('register.index');
+// });
+// Auth::routes();
+
+<<<<<<< HEAD
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/daily',[App\Http\Controllers\DailyController::class, 'index']);
@@ -27,3 +38,6 @@ Route::get('/daily',[App\Http\Controllers\DailyController::class, 'index']);
 Route::get('/makeup',function () {
     return view('register.makeup');
 });
+=======
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+>>>>>>> 45ee520abaad69596e6ccce127fea4d0ec049158

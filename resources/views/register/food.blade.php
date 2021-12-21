@@ -5,7 +5,7 @@
 @include("layouts.topbar")
 
 @section("content")
-<h1>Make up </h1>
+<h1>food </h1>
 
 <table>
 <tr>

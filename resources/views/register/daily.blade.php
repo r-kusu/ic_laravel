@@ -8,16 +8,42 @@
 
 <table>
 <tr>
-<th>商品画像</th>
-<th>ファイルを選択</th>
-<th>商品名</th>
-<th>ジャンル</th>
-<th>残り個数</th>
-<th>規定数</th>
-<th>使用場所</th>
-<th>保管場所</th>
-<th>購入場所</th>
-<th>保存</th>
+<tr><th>商品画像</th>
+    <th>
+        <form action="#">
+        <p><input type="file" name="s_file"></p>
+        </form>
+    </th>    
+</tr>
+<tr>
+    <th>商品名</th>
+    <th><p><input type="text" maxlength="50"></p></th>
+</tr>
+<tr>
+    <th>ジャンル</th>
+    <th><p><input type="text" maxlength="30"></p></th>
+</tr>    
+<tr>
+    <th>残り個数</th>
+    <th><p><input type="text" maxlength="3"></p></th>
+</tr>
+<tr>
+    <th>規定数</th>
+    <th><p><input type="text" maxlength="3"></p></th>
+</tr>
+<tr>
+    <th>使用場所</th>
+    <th><p><input type="text" maxlength="50"></p></th>
+</tr>
+<tr>
+    <th>保管場所</th>
+    <th><p><input type="text" maxlength="50"></p></th>
+</tr>
+<tr>
+    <th>購入場所</th>
+    <th><p><input type="text"></p></th>
+</tr>
+<th><input type = "submit" value = "保存"></th>
 </tr>
 
 {{-- @foreach($members as $member)
