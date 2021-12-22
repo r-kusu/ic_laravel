@@ -29,15 +29,13 @@ Route::get('register/list', function () {
 // });
 // Auth::routes();
 
-<<<<<<< HEAD
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/daily',[App\Http\Controllers\DailyController::class, 'index']);
 
 
-Route::get('/makeup',function () {
-    return view('register.makeup');
+Route::get('/food',function () {
+    return view('register.food');
 });
-=======
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
->>>>>>> 45ee520abaad69596e6ccce127fea4d0ec049158
+

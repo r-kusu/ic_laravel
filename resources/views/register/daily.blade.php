@@ -2,7 +2,9 @@
 
 @section('title', '在庫管理')
 
-@include("layouts.topbar")
+@section("topbar")
+@include("layouts.topbarregister")
+@endsection
 
 @section("content")
 
