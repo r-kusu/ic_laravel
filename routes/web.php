@@ -34,6 +34,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/daily',[App\Http\Controllers\DailyController::class, 'index']);
 
+Route::post('/daily/create',[App\Http\Controllers\DailyController::class, 'create']);
 
 Route::get('/food',function () {
     return view('register.food');

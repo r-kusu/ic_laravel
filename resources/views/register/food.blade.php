@@ -1,6 +1,6 @@
 @extends("layouts.app")
 
-@section('title', '化粧')
+@section('title', '食料品')
 
 @include("layouts.topbar")
 
