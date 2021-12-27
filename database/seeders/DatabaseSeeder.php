@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use Illuminate\Support\Facades\DB;
+
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,6 +15,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        DB::table('users')->truncate(); // リセットする関数
+
+        \App\Models\User::factory(10)->create();
+        
+        $this->call(
+            [
+                ItemTableSeeder::class,
+                CategoryTableSeeder::class,
+            ]
+        );
+
     }
 }
