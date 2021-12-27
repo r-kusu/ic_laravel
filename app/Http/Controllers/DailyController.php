@@ -15,7 +15,7 @@ class DailyController extends Controller
 
     //日用品登録処理
     public function create(Request $request){
-        dd($request);
+        
         // Daily::create([
         //     'user_id' => 0,
         //     'name' => $request ->namespace
