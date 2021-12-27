@@ -19,7 +19,7 @@ class CreateItemsTable extends Migration
             $table->string('name'); 
             $table->string('image_name');
             $table->integer('stock'); 
-            $table->string('threshold'); 
+            $table->integer('threshold'); 
             $table->timestamps();
         });
     }
