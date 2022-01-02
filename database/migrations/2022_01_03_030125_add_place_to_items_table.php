@@ -14,7 +14,8 @@ class AddPlaceToItemsTable extends Migration
     public function up()
     {
         Schema::table('items', function (Blueprint $table) {
-            $table->string('place');
+            $table->string('place')->after('image_name');
+            //
         });
     }
 
@@ -26,7 +27,6 @@ class AddPlaceToItemsTable extends Migration
     public function down()
     {
         Schema::table('items', function (Blueprint $table) {
-            
             //
         });
     }
