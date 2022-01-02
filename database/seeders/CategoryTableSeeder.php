@@ -20,37 +20,32 @@ class CategoryTableSeeder extends Seeder
         // テーブルにデータを挿入する処理
         DB::table('categories')->insert([
             [
-            'item_id' => 1,
-            'key' => 1,
-            'value' => 1,
-            'created_at' => now(),
-            'updated_at' => now(),
+                'name' => '食料品',
+                'item_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
+                'name' => '書籍、書籍、書籍、書籍、書籍、書籍、書籍',
                 'item_id' => 2,
-                'key' => 2,
-                'value' => 2,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
+                'name' => '日用品\n（洗剤、シャンプー、ボディーソープ、ブラシetc...）',
                 'item_id' => 3,
-                'key' => 2,
-                'value' => 2,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
+                'name' => 'ファッション',
                 'item_id' => 4,
-                'key' => 3,
-                'value' => 3,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
+                'name' => 'コスメ',
                 'item_id' => 5,
-                'key' => 4,
-                'value' => 5,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]]);
