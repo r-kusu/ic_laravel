@@ -24,7 +24,7 @@
 
 <tr class = "category">
     <th scope="row">ジャンル</th>
-    <td><p><input type="text" maxlength="30" name="key"></p></td>
+    <td><p><input type="text" maxlength="30" name="category_name"></p></td>
 </tr>    
 
 <tr class= "">
@@ -37,20 +37,20 @@
     <td><p><input type="text" maxlength="3" name="threshold"></p></td>
 </tr>
 
-<tr>
+<!-- <tr>
     <th scope="row"> 使用場所</th>
     <td><p><input type="text" maxlength="50" name=""></p></td>
-</tr>
+</tr> -->
 
 <tr>
     <th scope="row">保管場所</th>
-    <td><p><input type="text" maxlength="50" name=""></p></td>
+    <td><p><input type="text" maxlength="50" name="place"></p></td>
 </tr>
 
-<tr>
+<!-- <tr>
     <th scope="row">購入場所</th>
     <td><p><input type="text" name=""></p></td>
-</tr>
+</tr> -->
 
 
 <th><input type = "submit" value = "保存"></th>
