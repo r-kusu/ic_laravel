@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\Category;
 use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
@@ -27,9 +27,12 @@ class HomeController extends Controller
     public function index()
     {
         // // categoriesテーブルからkey,valueを$categoriesに格納
-        $categories=DB::table('categories')
-        ->select('key','value')
-        ->get();
+        // $categories=DB::table('categories')
+        // ->select('name',)
+        // ->get();
+
+        $categories=Category::select('name')->get();
+
 
         // viewを返す(compactでviewに$categoriesを渡す)
         return view('register/index',compact('categories'));
