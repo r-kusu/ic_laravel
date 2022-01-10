@@ -3,7 +3,8 @@
 <html lang="ja">
 
 <head>
-    @yield('head')
+    @include("layouts.head")
+    <title>@yield('title')</title>
 </head>
 
 <body>

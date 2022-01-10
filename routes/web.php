@@ -29,4 +29,14 @@ Route::get('register/list', function () {
 // });
 // Auth::routes();
 
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/daily',[App\Http\Controllers\DailyController::class, 'index']);
+
+Route::post('/daily/create',[App\Http\Controllers\DailyController::class, 'create']);
+
+Route::get('/food',function () {
+    return view('register.food');
+});
+
