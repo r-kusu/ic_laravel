@@ -8,7 +8,8 @@
 
 <body>
     @yield('topbar')
-    @yield('content')
+    <main>
+        @yield('content')
+    </main>
 </body>
-
 </html>
