@@ -1,4 +1,5 @@
 @section('topbar')
+
 <div class="header bg-info d-flex">
     <a class="btn" href="#" role="button"><i class="bi bi-search text-light"></i></a>
     <!-- <h1>在庫管理システム</h1> -->
@@ -8,4 +9,5 @@
         <li class="list-inline-item  text-light position-absolute top-0 end-0">ハンバーガーメニュー</li>
     </ul>
 </div>
+
 @endsection
