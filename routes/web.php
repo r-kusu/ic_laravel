@@ -36,7 +36,13 @@ Route::get('/daily',[App\Http\Controllers\DailyController::class, 'index']);
 
 Route::post('/daily/create',[App\Http\Controllers\DailyController::class, 'create']);
 
-Route::get('/food',function () {
-    return view('register.food');
-});
+Route::get('/food',function () {return view('register.food');});
 
+//Route::get('/editdaily',function () {return view('edit.editdaily');});
+Route::get('/editdaily/{itemid}', [App\Http\Controllers\DailyController::class, 'edit']);
+// Route::resource('/editdaily', App\Http\Controllers\DailyController::class)
+// ->only(['create','edit','update']);
+Route::put('/editdaily/{itemid}/update', [App\Http\Controllers\DailyController::class, 'update'])->name('edit');
+
+// Route::resource('/editdaily/{itemid}/update', App\Http\Controllers\DailyController::class)->only(['create','update']);
+Route::delete('/editdaily/{itemid}',[App\Http\Controllers\DailyController::class, 'delete'])->name('delete.editdaily');

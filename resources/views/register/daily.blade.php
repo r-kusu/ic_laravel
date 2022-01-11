@@ -1,6 +1,6 @@
 @extends("layouts.app")
 
-@section('title', '在庫管理')
+@section('title', '日用品登録')
 
 @include("layouts.topbar")
 
