@@ -55,7 +55,9 @@ class DailyController extends Controller
     public function edit($item_id)
     {
         $item = Item::find($item_id);
-        return view('edit.editdaily', compact('item', 'item_id'));
+        $category = Category::where('item_id',$item_id)->first();
+        return view('edit.editdaily', compact('item', 'item_id','category'));
+        
     }
     
     /**
@@ -85,9 +87,9 @@ class DailyController extends Controller
 
         $item->save();
         
-        $category= Category::find($item_id);
+        $category= Category::where('item_id',$item_id)->first();
         
-        $category->name=$request->input('category_name');
+        $category->name=$request->input('name');
 
         $category->save();
 

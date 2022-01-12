@@ -25,7 +25,7 @@
 
 <tr class = "category">
     <th scope="row">ジャンル</th>
-    <td><p><input type="text" maxlength="30" name="category_name" value="{{ $item->category_name }}"></p></td>
+    <td><p><input type="text" maxlength="30" name="category_name" value="{{ $category->name }}"></p></td>
 </tr>    
 
 <tr class= "">
@@ -54,7 +54,7 @@
 </tr> -->
 
 
-<th><input type = "submit" value = "保存"></th>
+<th><input type  = "submit" class ="btn btn-primary" value = "保存"></th>
 </tr>
 </form>
 
@@ -65,7 +65,7 @@
 >
 @csrf
 @method('DELETE')
-<button class="btn btn-danger">削除する</button>
+<th><button class="btn btn-danger">削除</button></th>
 </form>
 
 
