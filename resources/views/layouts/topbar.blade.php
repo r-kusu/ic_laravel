@@ -3,13 +3,12 @@
   <div class="wrapper">
     <nav class="navbar navbar-info bg-info">
 
-      <!-- 検索ボタン🔍 -->
+      <!-- 検索ボタン -->
       <input id="search" type="checkbox">
       <label for="search" class="open"><i class="bi bi-search text-light"></i></label>
       <label for="search" class="back"></label>
-      <!-- 🔍 -->
       
-      <!-- 検索メニュー🔍 -->
+      <!-- 検索メニュー -->
       <aside>
         <label for="search" class="close"><i class="bi bi-x"></i></label>
         
@@ -47,7 +46,6 @@
         <button type="submit" class="btn btn-danger">この条件で検索</button>
       </div>
     </aside>
-    <!-- 🔍 -->
     
     <div class="category">日用品</div>
     

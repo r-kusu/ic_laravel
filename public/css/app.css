@@ -11699,7 +11699,7 @@ aside {
     align-items: center;
 }
 
-/* 検索ボタン🔍 */
+/* 検索ボタン */
 .open,
 .close {
     display: block;
@@ -11737,7 +11737,7 @@ input[type="checkbox"]:checked ~ .back {
     margin-bottom: 0.5rem;
 }
 
-/* ハンバーガーメニュー🍔 */
+/* ハンバーガーメニュー */
 /* チェックボックスは非表示に */
 .drawer-hidden {
     display: none;
