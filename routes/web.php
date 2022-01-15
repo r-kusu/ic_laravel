@@ -13,6 +13,11 @@ use App\HTTP\Controllers\HomeController;
 |
 */
 
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\SignController::class, 'func']);
+Route::post('/register', [App\Http\Controllers\SignController::class, 'register']);
+
 Route::get('/', function () {
     return view('welcome');
 });
