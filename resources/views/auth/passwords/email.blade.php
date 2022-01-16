@@ -1,15 +1,15 @@
 @extends('layouts.app')
 
-<link href="{{asset('css/style.css')}}" rel="stylesheet">
+<link href="{{asset('css/signstyle.css')}}" rel="stylesheet">
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('パスワード変更') }}</div>
+<div class="container-k">
+    <div class="row-k justify-content-center">
+        <div class="col-md-8-k">
+            <div class="card-k">
+                <div class="card-header-k">{{ __('パスワード変更') }}</div>
 
-                <div class="card-body">
+                <div class="card-body-k">
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
@@ -19,29 +19,29 @@
                     <form method="POST" action="{{ route('password.email') }}">
                         @csrf
 
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('メールアドレス') }}</label>
+                        <div class="row-k mb-3-k">
+                            <label for="email" class="col-md-4-k col-form-label-k text-md-right">{{ __('メールアドレス') }}</label>
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                            <div class="col-md-6-k">
+                                <input id="email" type="email" class="form-control-k @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
                                 @error('email')
-                                    <span class="invalid-feedback" role="alert">
+                                    <span class="invalid-feedback-k" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
                         </div>
 
-                        <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                        <div class="row-k mb-0-k">
+                            <div class="col-md-6-k offset-md-4-k">
+                                <button type="submit" class="btn-k btn-primary-k">
                                     {{ __('送信') }}
                                 </button>
                             </div>
                         </div>
                     </form>
-                    <div class="first register"><a class="btn first register"  href="/login">ログイン画面に戻る</a></div>
+                    <div class="first-k register-k"><a class="btn-k first-k register-k"  href="/login">ログイン画面に戻る</a></div>
                 </div>
             </div>
         </div>
