@@ -6,15 +6,14 @@
 @include('layouts.topbar')
 
 @section('content')
+<div>
+    <h1>日用品管理システム</h1>
     <div>
-        <h1>日用品管理システム</h1>
+        @foreach($categories as $category)
         <div>
-            <div>
-            <button type="button" class="category-index btn btn-primary rounded-3"><a href="#">買い物リスト</a></button>
-            <button type="button" class="category-index btn btn-primary rounded-3"><a href="#">買い物リスト</a></button>
-            <button type="button" class="category-index btn btn-primary rounded-3"><a href="#">買い物リスト</a></button>
-            <button type="button" class="category-index btn btn-primary rounded-3"><a href="#">買い物リスト</a></button>
-            </div>
+            <button type="button" class="category-index btn btn-primary rounded-3"><a href="{{route('list',['id'=>$category->id])}}">{{$category->name}}</a></button>
         </div>
+        @endforeach
     </div>
+</div>
 @endsection

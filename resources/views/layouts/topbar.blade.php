@@ -63,25 +63,18 @@
         <!-- メニュー -->
         <nav class="drawer-content">
           <ul class="drawer-list">
+            @foreach($categories as $category)
             <li class="drawer-item">
-              <a href="">日用品</a>
-            </li>
-            <li class="drawer-item">
-              <a href="">食料品</a>
-            </li>
-            <li class="drawer-item">
-              <a href="">書籍</a>
-            </li>
-            <li class="drawer-item">
-              <a href="">買い物リスト</a>
-            </li>
+              <a href="{{route('list',['id'=>$category->id])}}">{{$category->name}}</a>
+              @endforeach
+          </ul>
+          <ul class="drawer-list">
             <li class="drawer-item">
               <a href="">会員情報</a>
             </li>
             <li class="drawer-item">
               <a href="">ログアウト</a>
             </li>
-            
           </ul><!-- /.drawer-list -->
         </nav>
         
