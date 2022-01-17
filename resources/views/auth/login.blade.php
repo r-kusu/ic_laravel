@@ -1,70 +1,77 @@
 @extends('layouts.app')
 
+<link href="{{asset('css/signstyle.css')}}" rel="stylesheet">
+
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+<div class="body-k">
+    <div class="container-k">
+        <div class="row-k justify-content-center">
+            <div class="col-md-8-k">
+                <div class="card-k">
+                    <div class="card-header-k">{{ __('在庫管理システム') }}</div>
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
+                    <div class="card-body-k">
+                        <form method="POST" action="{{ route('login') }}">
+                            @csrf
 
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                            @error('email')
+                                <span class="invalid-feedback-k" role="alert">
+                                    <strong class="invalid-feedback-email-k">{{ ('ログインに失敗しました。メールアドレス、パスワードが正しいかご確認ください。') }}</strong>
+                                </span>
+                            @enderror
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                            
+                            <div class="row-k mb-3-k">
+                                <label for="email" class="col-md-4-k col-form-label-k text-md-right" >{{ __('メールアドレス') }}</label>
 
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
+                                <div class="col-md-6-k">
+                                    <input id="email" type="email" class="form-control-k @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" autocomplete="email" autofocus required>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
+                            <div class="row-k mb-3-k">
+                                <label for="password" class="col-md-4-k col-form-label-k text-md-right"required>{{ __('パスワード') }}</label>
 
+                                <div class="col-md-6-k">
+                                    <input id="password" type="password" class="form-control-k @error('password') is-invalid @enderror" name="password" required autocomplete="current-password"  minlength="6" maxlength="32" >
+
+                                    @error('password')
+                                        <span class="invalid-feedback-k" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="row-k mb-3-k">
+                                <div class="col-md-6-k offset-md-4-k">
+                                    <div class="form-check-k">
+                                        <input class="form-check-input-k" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+
+                                        <label class="form-check-label-k" for="remember">
+                                            {{ __('パスワードを保存') }}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row-k mb-0-k">
+                                <div class="col-md-8-k offset-md-4-k">
+                                    <button type="submit" class="btn-k btn-primary-k">
+                                        {{ __('ログイン') }}
+                                    </button>
+                            </div>
+                            <div class="row-k mb-1-k">
                                 @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
+                                    <a class="btn-k btn-link-k" href="{{ route('password.request') }}">
+                                        {{ __('パスワードを忘れた方はこちら') }}
                                     </a>
                                 @endif
                             </div>
-                        </div>
-                    </form>
+                        </form>
+                        <div class="first-k register-k"><a class="btn-k first-k register-k"  href="/register">会員登録する</a></div>
+                    </div>
+                    <div class="his-k text-muted">©2022</div>
                 </div>
             </div>
         </div>
