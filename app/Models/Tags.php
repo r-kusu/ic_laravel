@@ -5,18 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Item extends Model
+class Tags extends Model
 {
     use HasFactory;
-    protected $table = 'items';
+    protected $table = 'tags';
     protected $fillable = [
         'id',
-        'user_id',
-        'name',
-        'image_name',
-        'place',
-        'stock',
-        'threshold',
+        'tag_name',
         'updated_at',
         'created_at',
         ];

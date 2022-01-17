@@ -23,6 +23,8 @@ class DatabaseSeeder extends Seeder
             [
                 ItemTableSeeder::class,
                 CategoryTableSeeder::class,
+                TagsTableSeeder::class,
+                Item_tagsTableSeeder::class,
             ]
         );
 
