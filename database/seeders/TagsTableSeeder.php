@@ -6,7 +6,7 @@ use Illuminate\Database\Seeder;
 
 use Illuminate\Support\Facades\DB;
 
-class CategoryTableSeeder extends Seeder
+class TagsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,32 +15,32 @@ class CategoryTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('categories')->truncate(); // リセットする関数
+        DB::table('tags')->truncate(); // リセットする関数
 
         // テーブルにデータを挿入する処理
-        DB::table('categories')->insert([
+        DB::table('tags')->insert([
             [
-                'name' => '食料品',
+                'tag_name' => '',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'name' => '書籍、書籍、書籍、書籍、書籍、書籍、書籍',
+                'tag_name' => '（id:1は空欄）',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'name' => '日用品\n（洗剤、シャンプー、ボディーソープ、ブラシetc...）',
+                'tag_name' => 'セイユー',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'name' => 'ファッション',
+                'tag_name' => '親',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'name' => 'コスメ',
+                'tag_name' => 'あ、\nあ、\nあ、\nあ、\nあ、\nあ、\nあ、\nあ、\nあ、\nあ。',
                 'created_at' => now(),
                 'updated_at' => now(),
             ]]);
