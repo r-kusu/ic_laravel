@@ -51,3 +51,6 @@ Route::put('/editdaily/{itemid}/update', [App\Http\Controllers\DailyController::
 
 // Route::resource('/editdaily/{itemid}/update', App\Http\Controllers\DailyController::class)->only(['create','update']);
 Route::delete('/editdaily/{itemid}',[App\Http\Controllers\DailyController::class, 'delete'])->name('delete.editdaily');
+
+//検索ボタンを押すとコントローラのindexメソッドを実行します
+Route::get('/daily/create',[App\Http\Controllers\DailyController::class, 'create'])->name('create');

@@ -6,12 +6,24 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Item;
 use Validator;
+use Illuminate\Support\Facades\DB;
 
 class DailyController extends Controller
 {
     //日用品登録画面の表示
     public function index(){
-        return view('register.daily');
+
+        $categories =  Category::get();
+        $names = [];
+        
+        foreach($categories as $category){
+            if(!in_array($category->name,$names)){
+                $names[] = $category->name;
+            }
+            
+        }
+        $names[] = '新しくジャンルを追加する';
+        return view('register.daily',compact('names'));
     }
     
 
@@ -37,13 +49,30 @@ class DailyController extends Controller
         ]);
         
 
+        // itemsテーブルの最後のIDを取得
+        $new_id = DB::table('items')->orderBy('id', 'asc')->first();
+
+        
+        //if($category=='新しくジャンルを追加する'){
+        //ジャンルがDBになかった時='新しくジャンルを追加する'を選択してカテゴリーに登録する。
         $category= Category::create([
             'name'=>$request->input('category_name'),
-            'item_id'=>$item->id
-        ]);
+            'item_id'=>$new_id->id
+        ]);     
+        // カテゴリ名を取得
+        $categories =  Category::get();
+        $names = [];
         
-        return redirect('/daily');
+        foreach($categories as $category){
+            if(!in_array($category->name,$names)){
+                $names[] = $category->name;
+            }
+        }
+        $names[] = '新しくジャンルを追加する';
+        return view('register.daily',compact('names'));
     }
+    
+
 
     //編集処理
     /**
