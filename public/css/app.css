@@ -17293,133 +17293,27 @@ a {
     text-decoration: none;
     color: black;
 }
-aside {
-    width: 20%;
-    min-width: 250px;
-    display: flex;
-    flex-direction: column;
-}
-.search {
-    margin-top: auto;
-    height: 100vw;
-    background: #e9e9e9;
-}
 
 /* トップバー */
-.wrapper {
-    width: 100%;
-    position: fixed;
-    /* justify-content: space-between; */
-    align-items: center;
+header{
+  color: white;
 }
-
-/* 検索ボタン */
-.open,
-.close {
-    display: block;
+.select-label{
+  color: black;
 }
-input[type="checkbox"] {
-    position: absolute;
-    left: -50vw;
+.create-icon a{
+  color: white;
 }
-.open {
-    position: absolute;
+.create-icon a:hover{
+  color: white;
 }
-aside {
-    position: absolute;
-    left: -300px;
-    width: 300px;
-    height: 100%;
-    transition: all 0.2s;
-    background: #e9e9e9;
-    /* padding-left: 1rem; */
+.list-group a{
+  text-decoration: none;
+  color: black;
 }
-input[type="checkbox"]:checked ~ aside {
-    left: 0;
+.list-group a:hover{
+  color: black;
 }
-input[type="checkbox"]:checked ~ .back {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-}
-#key {
-    width: 250px;
-    padding: 0.5rem;
-    margin-bottom: 2rem;
-}
-.search p {
-    margin-bottom: 0.5rem;
-}
-
-/* ハンバーガーメニュー */
-/* チェックボックスは非表示に */
-.drawer-hidden {
-    display: none;
-}
-/* ハンバーガーアイコンの設置スペース */
-.drawer-open {
-    display: flex;
-    height: 60px;
-    width: 60px;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    z-index: 100; /* 重なり順を一番上に */
-    cursor: pointer;
-}
-/* ハンバーガーメニューのアイコン */
-.drawer-open span,
-.drawer-open span:before,
-.drawer-open span:after {
-    content: "";
-    display: block;
-    height: 3px;
-    width: 25px;
-    border-radius: 3px;
-    background: #333;
-    transition: 0.5s;
-    position: absolute;
-}
-/* 三本線のうち一番上の棒の位置調整 */
-.drawer-open span:before {
-    bottom: 8px;
-}
-/* 三本線のうち一番下の棒の位置調整 */
-.drawer-open span:after {
-    top: 8px;
-}
-/* アイコンがクリックされたら真ん中の線を透明にする */
-#drawer-check:checked ~ .drawer-open span {
-    background: rgba(255, 255, 255, 0);
-}
-/* アイコンがクリックされたらアイコンが×印になように上下の線を回転 */
-#drawer-check:checked ~ .drawer-open span::before {
-    bottom: 0;
-    transform: rotate(45deg);
-}
-#drawer-check:checked ~ .drawer-open span::after {
-    top: 0;
-    transform: rotate(-45deg);
-}
-/* メニューのデザイン*/
-.drawer-content {
-    width: 300px;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    left: 100%; /* メニューを画面の外に飛ばす */
-    z-index: 99;
-    background: #e9e9e9;
-    transition: 0.5s;
-}
-.drawer-list {
-    list-style: none;
-}
-/* アイコンがクリックされたらメニューを表示 */
-#drawer-check:checked ~ .drawer-content {
-    left: 0; /* メニューを画面に入れる */
-}
-
 
 /* index画面 */
 .category-index {
@@ -17430,6 +17324,9 @@ input[type="checkbox"]:checked ~ .back {
 .category-index a{
     color: white;
     font-size: x-large;
+}
+.category-index a:hover{
+  color: white;
 }
 
 /* 各種アイテム一覧 */

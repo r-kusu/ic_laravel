@@ -11,7 +11,7 @@
     <div>
         @foreach($categories as $category)
         <div>
-            <button type="button" class="category-index btn btn-primary rounded-3"><a href="{{route('list',['id'=>$category->id])}}">{{$category->name}}</a></button>
+            <a class="category-index btn btn-primary rounded-3" href="{{route('list',['id'=>$category->id])}}" role="button">{{$category->name}}</a>
         </div>
         @endforeach
     </div>
