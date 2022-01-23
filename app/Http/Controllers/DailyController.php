@@ -6,6 +6,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Item;
 use Validator;
+use Illuminate\Support\Facades\Auth;
 
 class DailyController extends Controller
 {
@@ -26,9 +27,14 @@ class DailyController extends Controller
             'place'=>['required'],   
         ]);
 
+        // 現在認証しているユーザーのIDを取得
+        $id = Auth::id();
+        // var_dump($id);
+        // exit;
+
         $item = Item::create([
             // TODO: ログイン情報からユーザーID取得
-            'user_id' => '1',
+            'user_id' => $request->input('user_id'),
             'name'=>$request->input('name'),
             'image_name'=>$request->input('image_name'),
             'stock'=>$request->input('stock'),
