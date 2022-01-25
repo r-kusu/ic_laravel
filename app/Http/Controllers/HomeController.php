@@ -30,11 +30,14 @@ class HomeController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $items=Item::all();
+        // $items = $request->user()->items()->get();
         $tags=Tags::all();
+        // $tags = $request->user()->tags()->get();
         $categories=Category::all();
+        // $categories = $request->user()->categories()->get();
 
         // viewを返す(compactでviewに$categoriesを渡す)
         return view('register/index', compact('items','tags','categories'));
@@ -42,17 +45,10 @@ class HomeController extends Controller
 
     public function show($id)
     {
+        $items=Item::all();
+        $tags=Tags::all();
+        $categories=Category::all();
 
-        // $categories=Category::find($id);
-        // $categories=DB::table('categories')
-        // ->select('id','name')
-        // ->get();
-        // $items=DB::table('items')
-        // ->select('id','user_id','name','stock')
-        // ->get();
-        // return view('list')->with([
-        //     "$categories"=>category,
-        //     "$items"=>items,
-        // ]);
+        return view('register/list',compact('items','tags','categories'));
     }
 }
