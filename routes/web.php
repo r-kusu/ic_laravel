@@ -35,7 +35,7 @@ Route::get('register/list', function () {
 // Auth::routes();
 
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::get('/daily',[App\Http\Controllers\DailyController::class, 'index']);
 
@@ -52,4 +52,4 @@ Route::put('/editdaily/{itemid}/update', [App\Http\Controllers\DailyController::
 // Route::resource('/editdaily/{itemid}/update', App\Http\Controllers\DailyController::class)->only(['create','update']);
 Route::delete('/editdaily/{itemid}',[App\Http\Controllers\DailyController::class, 'delete'])->name('delete.editdaily');
 
-Route::get('/list/{id}', [App\Http\Controllers\HomeController::class, 'show'])->name('list');
+Route::get('/list/{id}', [HomeController::class, 'show'])->name('list');

@@ -14,5 +14,13 @@ class Tags extends Model
         'tag_name',
         'updated_at',
         'created_at',
-        ];
+    ];
+
+    /**
+     * ユーザーの保持する全アイテム
+     */
+    // public function tags()
+    // {
+    //     return $this->hasMany(Tag::class);
+    // }
 }

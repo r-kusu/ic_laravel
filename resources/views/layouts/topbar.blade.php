@@ -13,29 +13,30 @@
       <div class="offcanvas-body">
         <label for="" class="select-label pb-2 pt-3">カテゴリー</label>
         <select class="form-select" aria-label="Default select example">
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
+          @foreach($categories as $category)
+          <option value="{{$category->id}}">{{$category->name}}</option>
+          @endforeach
         </select>
 
         <label for="" class="select-label pb-2 pt-3">タグ</label>
         <select class="form-select" aria-label="Default select example">
-          <option value="1">One</option>
-          <option value="4">Two</option>
-          <option value="3">Three</option>
+        @foreach($tags as $tag)
+          <option value="{{$tag->id}}">{{$tag->tag_name}}</option>
+          @endforeach
         </select>
 
-        <label for="" class="select-label pb-2 pt-3">使用場所</label>
+        <label for="" class="select-label pb-2 pt-3">保管場所</label>
         <select class="form-select" aria-label="Default select example">
-          <option value="1">One</option>
-          <option value="4">Two</option>
-          <option value="3">Three</option>
+          @foreach($items as $item)
+          <option value="{{$item->id}}">{{$item->place}}</option>
+          @endforeach
         </select>
+        
       </div>
     </div>
 
     <!-- 閲覧中のカテゴリー名 -->
-    <div class="navbar-brand">日用品</div>
+    <div class="navbar-brand">{{$category->name}}</div>
 
     <!-- 新規登録 -->
     <button class="create-icon btn btn-info" type="button"><a href="#"><i class="bi bi-pencil-square"></i></a></button>
@@ -50,14 +51,9 @@
       <div class="offcanvas-body">
         <div class="dropdown mt-3">
           <ul class="list-group list-group-flush">
-
-
-            <!-- ループ処理 -->
-            <li class="list-group-item"><a href="#">日用品</a></li>
-            <li class="list-group-item"><a href="#">食料品</a></li>
-            <li class="list-group-item"><a href="#">買い物リスト</a></li>
-            <!-- ループ処理 -->
-
+            @foreach($categories as $category)
+            <li class="list-group-item"><a href="{{route('list',['id'=>$category->id])}}">{{$category->name}}</a></li>
+            @endforeach
             <li class="list-group-item"><a href="#">会員情報</a></li>
             <li class="list-group-item"><a href="#">ログアウト</a></li>
           </ul>
@@ -66,16 +62,4 @@
     </div>
   </nav>
 </header>
-
-
-
-
-
-
-
-
-
-
-
-
 @endsection

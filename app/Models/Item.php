@@ -20,4 +20,12 @@ class Item extends Model
         'updated_at',
         'created_at',
         ];
+
+        /*
+        * アイテムを保有するユーザーの取得
+        */
+        public function user()
+        {
+            return $this->belongsTo(User::class);
+        }
 }

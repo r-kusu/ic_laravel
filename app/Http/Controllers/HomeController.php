@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Item;
 use App\Models\Category;
+use App\Models\Item;
+use App\Models\Tags;
+use App\Models\ItemTags;
+use App\Models\User;
+
 use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
@@ -21,23 +25,24 @@ class HomeController extends Controller
 
     /**
      * Show the application dashboard.
-     * 一覧画面
+     * カテゴリー一覧画面
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function index()
     {
-        // categoriesテーブルからid,nameを$categoriesに格納
-        $categories=DB::table('categories')
-        ->select('id','name')
-        ->get();
+        $items=Item::all();
+        $tags=Tags::all();
+        $categories=Category::all();
 
         // viewを返す(compactでviewに$categoriesを渡す)
-        return view('register/index',compact('categories'));
+        return view('register/index', compact('items','tags','categories'));
     }
-    
+
     public function show($id)
     {
+
         // $categories=Category::find($id);
         // $categories=DB::table('categories')
         // ->select('id','name')
