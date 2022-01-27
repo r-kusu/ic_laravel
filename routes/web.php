@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\HTTP\Controllers\HomeController;
 /*
 |--------------------------------------------------------------------------
@@ -43,14 +44,16 @@ Route::post('/daily/create',[App\Http\Controllers\DailyController::class, 'creat
 
 Route::get('/food',function () {return view('register.food');});
 
-//Route::get('/editdaily',function () {return view('edit.editdaily');});
 Route::get('/editdaily/{itemid}', [App\Http\Controllers\DailyController::class, 'edit']);
-// Route::resource('/editdaily', App\Http\Controllers\DailyController::class)
-// ->only(['create','edit','update']);
+
 Route::put('/editdaily/{itemid}/update', [App\Http\Controllers\DailyController::class, 'update'])->name('edit');
 
-// Route::resource('/editdaily/{itemid}/update', App\Http\Controllers\DailyController::class)->only(['create','update']);
 Route::delete('/editdaily/{itemid}',[App\Http\Controllers\DailyController::class, 'delete'])->name('delete.editdaily');
 
 //検索ボタンを押すとコントローラのindexメソッドを実行します
 Route::get('/daily/create',[App\Http\Controllers\DailyController::class, 'create'])->name('create');
+
+//カテゴリー画面
+Route::get('register/category', [App\Http\Controllers\CategoryController::class, 'index'])->name('category');
+
+Route::post('/category/create', [App\Http\Controllers\CategoryController::class, 'create']);

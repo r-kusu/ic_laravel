@@ -17,7 +17,16 @@ class Item extends Model
         'place',
         'stock',
         'threshold',
+        'category_id',
         'updated_at',
         'created_at',
         ];
+    
+    //中間テーブルのリレーション設定
+
+    public function Tags(){
+        return $this->belongsToMany(Tags::class,'item_tags','item_id','tag_id');
+    }
+
+    
 }

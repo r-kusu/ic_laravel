@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Item;
 use Validator;
 use Illuminate\Support\Facades\DB;
+use App\Models\Tags;
+use App\Models\ItemTags;
 
 class DailyController extends Controller
 {
@@ -14,18 +16,9 @@ class DailyController extends Controller
     public function index(){
 
         $categories =  Category::get();
-        $names = [];
-        
-        foreach($categories as $category){
-            if(!in_array($category->name,$names)){
-                $names[] = $category->name;
-            }
-            
-        }
-        $names[] = '新しくジャンルを追加する';
-        return view('register.daily',compact('names'));
+
+        return view('register.daily',compact('categories'));
     }
-    
 
     //日用品登録処理
 
@@ -45,21 +38,39 @@ class DailyController extends Controller
             'image_name'=>$request->input('image_name'),
             'stock'=>$request->input('stock'),
             'threshold'=>$request->input('threshold'),
+            'category_id'=>$request->input('category_id'),
             'place'=>$request->input('place')
         ]);
         
+        // TODO: タグを中間テーブルで商品と紐づける＆タグが新規であればタグテーブルに挿入
+        error_log("DailyController:create:tag_name : " . $request->input('tag_name'));
+        $existed_tag = Tags::where("tag_name", "=", $request->input('tag_name'))->first();
+        $tag_id = "";
 
-        // itemsテーブルの最後のIDを取得
-        $new_id = DB::table('items')->orderBy('id', 'asc')->first();
 
-        
-        //if($category=='新しくジャンルを追加する'){
-        //ジャンルがDBになかった時='新しくジャンルを追加する'を選択してカテゴリーに登録する。
-        $category= Category::create([
-            'name'=>$request->input('category_name'),
-            'item_id'=>$new_id->id
-        ]);     
-        // カテゴリ名を取得
+        if ( $existed_tag != null ) {
+            $tag_id = $existed_tag->id;
+        } else {
+            $tags = Tags::create([
+                'tag_name'=>$request->input('tag_name'),
+            ]);
+            $tag_id = $tags->id;
+        }
+
+        //中間テーブル
+        //$item = Item::find(1);
+        //$tags = Item::find(1)->tags()->orderBy('tag_name')->get();
+        error_log("DailyController:create:item_id : " . $item->id);
+        error_log("DailyController:create:tag_id : " . $tag_id);
+        ItemTags::create([
+//            'item_id'=>$request->input('item_id'), 
+//            'tag_id' =>$request->input('tag_id')
+            'item_id'=>$item->id, 
+            'tag_id' =>$tag_id,
+        ]);
+
+
+        // カテゴリ-を登録※質問する。（ここのメソッドいる？）
         $categories =  Category::get();
         $names = [];
         
@@ -68,8 +79,8 @@ class DailyController extends Controller
                 $names[] = $category->name;
             }
         }
-        $names[] = '新しくジャンルを追加する';
-        return view('register.daily',compact('names'));
+        
+        return view('register.daily',compact('names','categories'));
     }
     
 

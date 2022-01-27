@@ -25,9 +25,11 @@
 
 <tr class = "category">
     <th scope="row">ジャンル</th>
-    <td><p><select class="form-control" name="category_name">
-        @foreach($names as $name)
-        <option value={{$name}}>{{$name}}</option>
+    <td><p><select class="form-control" name="category_id">
+        @foreach($categories as $category)
+        <option value={{$category->id}}>
+            {{$category->name}}
+        </option>
         @endforeach
     </select></p></td>
     
@@ -53,10 +55,15 @@
     <td><p><input class="form-control" type="text" maxlength="50" name="place"></p></td>
 </tr>
 
-<!-- <tr>
-    <th scope="row">購入場所</th>
-    <td><p><input type="text" name=""></p></td>
-</tr> -->
+<tr class = "tag">
+    <th scope="row">タグ</th>
+    <td><div class="form-group">
+        <input class="form-control" name="tag_name">
+        <small class="form-text text-muted">ハッシュ”＃”で区切って入力してください</small>   
+    </div>
+        
+
+
 
 
 <th><button class="btn btn-primary" type="submit">保存</button></th>
