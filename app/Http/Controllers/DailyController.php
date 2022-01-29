@@ -32,13 +32,16 @@ class DailyController extends Controller
         // var_dump($id);
         // exit;
 
+        // dd($request);
         $item = Item::create([
-            // TODO: ログイン情報からユーザーID取得
-            'user_id' => $request->input('user_id'),
+            // TODO: ログインしている情報からユーザーID取得
+            'user_id' => $id, 
             'name'=>$request->input('name'),
-            'image_name'=>$request->input('image_name'),
+            'image_name'=>"ダミー",
+            // 'image_name'=>$request->file('image_name'),
             'stock'=>$request->input('stock'),
             'threshold'=>$request->input('threshold'),
+            'category_id' =>1, // ダミー―データ
             'place'=>$request->input('place')
         ]);
         

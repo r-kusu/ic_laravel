@@ -17,6 +17,7 @@ class Item extends Model
         'place',
         'stock',
         'threshold',
+        'category_id',
         'updated_at',
         'created_at',
         ];
