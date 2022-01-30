@@ -11,7 +11,7 @@ class Item extends Model
     protected $table = 'items';
     protected $fillable = [
         'id',
-        'user_id',
+        // 'user_id',
         'name',
         'image_name',
         'place',

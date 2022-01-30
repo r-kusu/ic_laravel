@@ -19,8 +19,9 @@ class Tags extends Model
     /**
      * ユーザーの保持する全アイテム
      */
-    // public function tags()
-    // {
-    //     return $this->hasMany(Tag::class);
-    // }
+    public function items()
+    {
+        return $this->hasMany(Item::class);
+    }
+
 }
