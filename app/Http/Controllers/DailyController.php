@@ -12,7 +12,14 @@ class DailyController extends Controller
 {
     //日用品登録画面の表示
     public function index(){
-        return view('register.daily');
+        if ( Auth::check() ){
+            // ログイン済みの時の処理
+            return view('register.daily');
+        } else {
+            // ログインしていないときの処理
+            return view( 'auth.login' );
+        }
+        
     }
     
 
@@ -63,10 +70,15 @@ class DailyController extends Controller
     */
     public function edit($item_id)
     {
-        $item = Item::find($item_id);
-        $category = Category::where('item_id',$item_id)->first();
-        return view('edit.editdaily', compact('item', 'item_id','category'));
-        
+        if ( Auth::check() ){
+            // ログイン済みの時の処理
+            $item = Item::find($item_id);
+            $category = Category::where('item_id',$item_id)->first();
+            return view('edit.editdaily', compact('item', 'item_id','category'));
+        } else {
+            // ログインしていないときの処理
+            return view( 'auth.login' );
+        }        
     }
     
     /**

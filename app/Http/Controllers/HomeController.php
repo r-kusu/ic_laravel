@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -31,10 +32,14 @@ class HomeController extends Controller
         // ->select('name',)
         // ->get();
 
-        $categories=Category::select('name')->get();
-
-
-        // viewを返す(compactでviewに$categoriesを渡す)
-        return view('register/index',compact('categories'));
+        if ( Auth::check() ){
+            // ログイン済みの時の処理
+            $categories=Category::select('name')->get();
+            // viewを返す(compactでviewに$categoriesを渡す)
+            return view('register/index',compact('categories'));
+        } else {
+            // ログインしていないときの処理
+            return view( 'auth.login' );
+        }
     }
 }
