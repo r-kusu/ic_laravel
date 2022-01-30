@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\HTTP\Controllers\HomeController;
+use App\Http\Controllers\Auth\LoginController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,7 +17,7 @@ use App\HTTP\Controllers\HomeController;
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\SignController::class, 'func']);
+//Route::get('/home', [App\Http\Controllers\SignController::class, 'func']);
 Route::post('/register', [App\Http\Controllers\SignController::class, 'register']);
 
 Route::get('/', function () {
@@ -32,7 +34,7 @@ Route::get('register/list', function () {
 // Route::group(['plefix'=>'register'],function(){
 //     Route::get('/index',[HomeController::class, 'index'])->name('register.index');
 // });
-// Auth::routes();
+Auth::routes();
 
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
@@ -53,3 +55,7 @@ Route::put('/editdaily/{itemid}/update', [App\Http\Controllers\DailyController::
 Route::delete('/editdaily/{itemid}',[App\Http\Controllers\DailyController::class, 'delete'])->name('delete.editdaily');
 
 Route::get('/list/{id}', [HomeController::class, 'show'])->name('list');
+Route::get('/shortagelist', [HomeController::class, 'show'])->name('shortagelist');
+
+
+Route::get('/logout',[LoginController::class,'logout']);
