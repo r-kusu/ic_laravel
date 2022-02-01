@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\HTTP\Controllers\HomeController;
+use App\HTTP\Controllers\DailyController;
 use App\Http\Controllers\Auth\LoginController;
 
 /*
@@ -17,45 +18,22 @@ use App\Http\Controllers\Auth\LoginController;
 
 Auth::routes();
 
-//Route::get('/home', [App\Http\Controllers\SignController::class, 'func']);
-Route::post('/register', [App\Http\Controllers\SignController::class, 'register']);
+Route::get('/', [HomeController::class, 'home'])->name('home');
+Route::get('/home', [HomeController::class, 'home'])->name('home');
 
-Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('register/index', function () {
-    return view('register.index');
-});
-Route::get('register/list', function () {
-    return view('register.list');
-});
+Route::get('/daily',[DailyController::class, 'index']);
 
-
-// Route::group(['plefix'=>'register'],function(){
-//     Route::get('/index',[HomeController::class, 'index'])->name('register.index');
-// });
-Auth::routes();
-
-
-Route::get('/home', [HomeController::class, 'index'])->name('home');
-
-Route::get('/daily',[App\Http\Controllers\DailyController::class, 'index']);
-
-Route::post('/daily/create',[App\Http\Controllers\DailyController::class, 'create']);
+Route::post('/daily/create',[DailyController::class, 'create']);
 
 Route::get('/food',function () {return view('register.food');});
 
-//Route::get('/editdaily',function () {return view('edit.editdaily');});
-Route::get('/editdaily/{itemid}', [App\Http\Controllers\DailyController::class, 'edit']);
-// Route::resource('/editdaily', App\Http\Controllers\DailyController::class)
-// ->only(['create','edit','update']);
-Route::put('/editdaily/{itemid}/update', [App\Http\Controllers\DailyController::class, 'update'])->name('edit');
+Route::get('/editdaily/{itemid}', [DailyController::class, 'edit']);
+Route::put('/editdaily/{itemid}/update', [DailyController::class, 'update'])->name('edit');
 
-// Route::resource('/editdaily/{itemid}/update', App\Http\Controllers\DailyController::class)->only(['create','update']);
-Route::delete('/editdaily/{itemid}',[App\Http\Controllers\DailyController::class, 'delete'])->name('delete.editdaily');
+Route::delete('/editdaily/{itemid}',[DailyController::class, 'delete'])->name('delete.editdaily');
 
 Route::get('/list/{id}', [HomeController::class, 'show'])->name('list');
-Route::get('/shortagelist', [HomeController::class, 'show'])->name('shortagelist');
-
+Route::get('/shortagelist', [HomeController::class, 'shortageitem'])->name('shortagelist');
+// Route::get('/search', [HomeController::class, 'itemsearch'])->name('search');
 
 Route::get('/logout',[LoginController::class,'logout']);

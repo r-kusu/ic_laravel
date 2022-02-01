@@ -10,6 +10,7 @@ use App\Models\ItemTags;
 use App\Models\User;
 
 use Illuminate\Support\Facades\DB;
+use SebastianBergmann\CodeUnit\FunctionUnit;
 
 class HomeController extends Controller
 {
@@ -30,116 +31,44 @@ class HomeController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function index(Request $request)
+    public function home(Request $request)
     {
         $items = $request->user()->items()->get();
         $user = $request->user();
         $tags = $user->tagsearch();
-        $categories = $user->search();
+        $categories = $user->categorysearch();
 
-        // viewを返す(compactでviewに$items,$tags,$categoriesを渡す)
         return view('register/index', compact('items', 'tags', 'categories'));
     }
 
     // カテゴリー選択したアイテムリスト
-    public function show(Request $request)
+    public function show(Request $request, string $category_id)
     {
         $items = $request->user()->items()->get();
         $user = $request->user();
         $tags = $user->tagsearch();
-        $categories = $user->search();
+        $categories = $user->categorysearch();
+        $listitem = $user->listitem($category_id);
 
-        // viewを返す(compactでviewに$items,$tags,$categoriesを渡す)
-        return view('register/list', compact('items', 'tags', 'categories'));
-
-        // 買い物リスト
-        // どれも絞り込まれない
-        // $shortageitems = $request->user()->items()->where('stock','<','threshold')->get();
-
-        // $shortageitems = $request->user()->items()->whereColumn('stock','<','threshold')->get();
-
-        // $shortageitems = DB::table('items')
-        // ->whereColumn('stock','<','threshold')->get();
-        // ->where('stock','<','threshold')->get();
-        // $this->items->whereColumn('stock','<','threshold')->get();
-
-        $shortageitems = $user->shortage();
-
-        return view('register/shortagelist', compact('items', 'tags', 'categories'));
+        return view('register/list', compact('items', 'tags', 'categories', 'listitem'));
     }
-
-
-    public function itemsearch(Request $request)
+    // 買い物リスト
+    public static function shortageitem(Request $request)
     {
-        // $keyword_name = $request->name;
-        $keyword_age = $request->age;
-        $keyword_sex = $request->sex;
-        $keyword_age_condition = $request->age_condition;
-
-        if (!empty($keyword_name) && empty($keyword_age) && empty($keyword_age_condition)) {
-            $query = User::query();
-            $users = $query->where('name', 'like', '%' . $keyword_name . '%')->get();
-            $message = "「" . $keyword_name . "」を含む名前の検索が完了しました。";
-            return view('/serch')->with([
-                'users' => $users,
-                'message' => $message,
-            ]);
-        } elseif (empty($keyword_name) && !empty($keyword_age) && $keyword_age_condition == 0) {
-            $message = "年齢の条件を選択してください";
-            return view('/serch')->with([
-                'message' => $message,
-            ]);
-        } elseif (empty($keyword_name) && !empty($keyword_age) && $keyword_age_condition == 1) {
-            $query = User::query();
-            $users = $query->where('age', '>=', $keyword_age)->get();
-            $message = $keyword_age . "歳以上の検索が完了しました";
-            return view('/serch')->with([
-                'users' => $users,
-                'message' => $message,
-            ]);
-        } elseif (empty($keyword_name) && !empty($keyword_age) && $keyword_age_condition == 2) {
-            $query = User::query();
-            $users = $query->where('age', '<=', $keyword_age)->get();
-            $message = $keyword_age . "歳以下の検索が完了しました";
-            return view('/serch')->with([
-                'users' => $users,
-                'message' => $message,
-            ]);
-        } elseif (!empty($keyword_name) && !empty($keyword_age) && $keyword_age_condition == 1) {
-            $query = User::query();
-            $users = $query->where('name', 'like', '%' . $keyword_name . '%')->where('age', '>=', $keyword_age)->get();
-            $message = "「" . $keyword_name . "」を含む名前と" . $keyword_age . "歳以上の検索が完了しました";
-            return view('/serch')->with([
-                'users' => $users,
-                'message' => $message,
-            ]);
-        } elseif (!empty($keyword_name) && !empty($keyword_age) && $keyword_age_condition == 2) {
-            $query = User::query();
-            $users = $query->where('name', 'like', '%' . $keyword_name . '%')->where('age', '<=', $keyword_age)->get();
-            $message = "「" . $keyword_name . "」を含む名前と" . $keyword_age . "歳以下の検索が完了しました";
-            return view('/serch')->with([
-                'users' => $users,
-                'message' => $message,
-            ]);
-        } elseif (empty($keyword_name) && empty($keyword_age) && $keyword_sex == 1) {
-            $query = User::query();
-            $users = $query->where('sex', '男')->get();
-            $message = "男性の検索が完了しました";
-            return view('/serch')->with([
-                'users' => $users,
-                'message' => $message,
-            ]);
-        } elseif (empty($keyword_name) && empty($keyword_age) && $keyword_sex == 2) {
-            $query = User::query();
-            $users = $query->where('sex', '女')->get();
-            $message = "女性の検索が完了しました";
-            return view('/serch')->with([
-                'users' => $users,
-                'message' => $message,
-            ]);
-        } else {
-            $message = "検索結果はありません。";
-            return view('/serch')->with('message', $message);
-        }
+        $items = $request->user()->items()->get();
+        $user = $request->user();
+        $tags = $user->tagsearch();
+        $categories = $user->categorysearch();
+        $shortageitems = $user->shortage();
+        return view('register/shortagelist', compact('items', 'tags', 'categories', 'shortageitems'));
     }
+
+    // 検索機能
+    // public function itemsearch(Request $request)
+    // {
+    //     $keyword_name = $request->name;
+    //     $keyword_category = $request->category;
+    //     $keyword_tag = $request->tag;
+    //     $keyword_place = $request->place;
+    // }
 }

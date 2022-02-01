@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
-@section('title','カテゴリー一覧')
+@section('title','日用品管理 ホーム')
 @include('layouts.head')
 
 @include('layouts.topbar')
 
 @section('content')
 <div>
-    <h1>日用品管理システム</h1>
+    <!-- <h1>日用品管理システム</h1> -->
     <div>
         @foreach($categories as $category)
         <div>

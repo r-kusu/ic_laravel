@@ -12,12 +12,12 @@
       </div>
       <div class="offcanvas-body">
 
-      <!-- <form action="" method="post">
-  {{ csrf_field()}}
-  {{method_field('get')}} -->
+        <form>
+          <input class="form-select" aria-label="Default select example" name="keyword" type="text" placeholder="キーワードを入力" value="{{ $params['keyword'] ?? null }}">
+        </form>
 
         <label for="" class="select-label pb-2 pt-3">カテゴリー</label>
-        <select class="form-select" aria-label="Default select example">
+        <select class="form-select" aria-label="Default select example" name="category">
           <option value="0">未選択</option>
           @foreach($categories as $category)
           <option value="{{$category->id}}">{{$category->name}}</option>
@@ -25,16 +25,16 @@
         </select>
 
         <label for="" class="select-label pb-2 pt-3">タグ</label>
-        <select class="form-select" aria-label="Default select example">
-        <option value="0">未選択</option>
-        @foreach($tags as $tag)
+        <select class="form-select" aria-label="Default select example" name="tag">
+          <option value="0">未選択</option>
+          @foreach($tags as $tag)
           <option value="{{$tag->id}}">{{$tag->tag_name}}</option>
           @endforeach
         </select>
 
         <label for="" class="select-label pb-2 pt-3">保管場所</label>
-        <select class="form-select" aria-label="Default select example">
-        <option value="0">未選択</option>
+        <select class="form-select" aria-label="Default select example" name="place">
+          <option value="0">未選択</option>
           @foreach($items as $item)
           <option value="{{$item->id}}">{{$item->place}}</option>
           @endforeach
@@ -43,11 +43,15 @@
       </div>
     </div>
 
+    <!-- ホーム -->
+    <a href="{{ url('/') }}" class="home-icon btn btn-info" role="button"><i class="bi bi-house-door"></i></a>
+
     <!-- 閲覧中のカテゴリー名 -->
-    <div class="navbar-brand">{{$category->name}}</div>
+    <!-- <div class="navbar-brand">{{$category->name}}</div> -->
+    <div class="navbar-brand fs-4">日用品管理</div>
 
     <!-- 新規登録 -->
-    <button class="create-icon btn btn-info" type="button"><a href="{{ url('/daily') }}"><i class="bi bi-pencil-square"></i></a></button>
+    <a href="{{ url('/daily') }}" class="create-icon btn btn-info" role="button"><i class="bi bi-pencil-square"></i></a>
 
     <!-- ハンバーガーメニュー -->
     <button class="btn btn-info" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><i class="bi bi-list"></i></button>
