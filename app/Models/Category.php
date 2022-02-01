@@ -15,5 +15,13 @@ class Category extends Model
         'item_id',
         'updated_at',
         'created_at',
-        ];
+    ];
+
+    /**
+     * カテゴリーを保有するユーザーの取得
+     */
+    public function item_id()
+    {
+        return $this->belongsTo(Item::class);
+    }
 }

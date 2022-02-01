@@ -11,7 +11,7 @@ class Item extends Model
     protected $table = 'items';
     protected $fillable = [
         'id',
-        'user_id',
+        // 'user_id',
         'name',
         'image_name',
         'place',
@@ -20,4 +20,12 @@ class Item extends Model
         'updated_at',
         'created_at',
         ];
+
+        /*
+        * アイテムを保有するユーザーの取得
+        */
+        public function user()
+        {
+            return $this->belongsTo(User::class);
+        }
 }
