@@ -23,14 +23,23 @@ Route::get('/home', [HomeController::class, 'home'])->name('home');
 
 Route::get('/daily',[DailyController::class, 'index']);
 
-Route::post('/daily/create',[DailyController::class, 'create']);
+// Route::group(['plefix'=>'register'],function(){
+//     Route::get('/index',[HomeController::class, 'index'])->name('register.index');
+// });
+Auth::routes();
 
-Route::get('/food',function () {return view('register.food');});
 
-Route::get('/editdaily/{itemid}', [DailyController::class, 'edit']);
-Route::put('/editdaily/{itemid}/update', [DailyController::class, 'update'])->name('edit');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::delete('/editdaily/{itemid}',[DailyController::class, 'delete'])->name('delete.editdaily');
+Route::get('/daily',[App\Http\Controllers\DailyController::class, 'index']);
+
+Route::post('/daily/create',[App\Http\Controllers\DailyController::class, 'create'])->middleware('auth');
+
+Route::get('/food',function () {return view('register.food');})->middleware('auth');
+
+Route::get('/editdaily/{itemid}', [App\Http\Controllers\DailyController::class, 'edit'])->middleware('auth');
+Route::put('/editdaily/{itemid}/update', [App\Http\Controllers\DailyController::class, 'update'])->name('edit')->middleware('auth');
+Route::delete('/editdaily/{itemid}',[App\Http\Controllers\DailyController::class, 'delete'])->name('delete.editdaily')->middleware('auth');
 
 Route::get('/list/{id}', [HomeController::class, 'show'])->name('list');
 Route::get('/shortagelist', [HomeController::class, 'shortageitem'])->name('shortagelist');
