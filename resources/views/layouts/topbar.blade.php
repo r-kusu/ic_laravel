@@ -12,35 +12,36 @@
       </div>
       <div class="offcanvas-body">
 
-        <form>
-          <input class="form-select" aria-label="Default select example" name="keyword" type="text" placeholder="キーワードを入力" value="{{ $params['keyword'] ?? null }}">
+        <form method="get" action="{{ route('search')}}">
+          <input class="form-select" aria-label="Default select example" name="keyword" type="search" placeholder="キーワードを入力" value="{{ $params['keyword'] ?? null }}">
+
+          <label for="" class="select-label pb-2 pt-3">カテゴリー</label>
+          <select class="form-select" aria-label="Default select example" name="category">
+            <option value="0">未選択</option>
+            @foreach($categories as $category)
+            <option value="{{$category->id}}">{{$category->name}}</option>
+            @endforeach
+          </select>
+
+          <label for="" class="select-label pb-2 pt-3">タグ</label>
+          <select class="form-select" aria-label="Default select example" name="tag">
+            <option value="0">未選択</option>
+            @foreach($tags as $tag)
+            <option value="{{$tag->id}}">{{$tag->tag_name}}</option>
+            @endforeach
+          </select>
+
+          <label for="" class="select-label pb-2 pt-3">保管場所</label>
+          <select class="form-select" aria-label="Default select example" name="place">
+            <option value="0">未選択</option>
+            @foreach($items as $item)
+            <option value="{{$item->id}}">{{$item->place}}</option>
+            @endforeach
+          </select>
+          <input class="btn btn-danger" type="submit" value="検索">
         </form>
-
-        <label for="" class="select-label pb-2 pt-3">カテゴリー</label>
-        <select class="form-select" aria-label="Default select example" name="category">
-          <option value="0">未選択</option>
-          @foreach($categories as $category)
-          <option value="{{$category->id}}">{{$category->name}}</option>
-          @endforeach
-        </select>
-
-        <label for="" class="select-label pb-2 pt-3">タグ</label>
-        <select class="form-select" aria-label="Default select example" name="tag">
-          <option value="0">未選択</option>
-          @foreach($tags as $tag)
-          <option value="{{$tag->id}}">{{$tag->tag_name}}</option>
-          @endforeach
-        </select>
-
-        <label for="" class="select-label pb-2 pt-3">保管場所</label>
-        <select class="form-select" aria-label="Default select example" name="place">
-          <option value="0">未選択</option>
-          @foreach($items as $item)
-          <option value="{{$item->id}}">{{$item->place}}</option>
-          @endforeach
-        </select>
-        <input class="btn btn-danger" type="submit" value="検索">
       </div>
+
     </div>
 
     <!-- ホーム -->
