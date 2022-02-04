@@ -8,18 +8,24 @@ use App\Models\Item;
 use Validator;
 use Illuminate\Support\Facades\Auth;
 
+
 class DailyController extends Controller
 {
     //日用品登録画面の表示
-    public function index(){
+    public function index(Request $request){
         if ( Auth::check() ){
-            // ログイン済みの時の処理
-            return view('register.daily');
+          // ログイン済みの時の処理
+          $items = $request->user()->items()->get();
+          $user = $request->user();
+          $tags = $user->tagsearch();
+          $categories = $user->categorysearch();
+
+          return view('register.daily', compact('items', 'tags', 'categories'));
+
         } else {
             // ログインしていないときの処理
             return view( 'auth.login' );
         }
-        
     }
     
 
@@ -68,17 +74,25 @@ class DailyController extends Controller
     * @param  int  $item_id
     * @return \Illuminate\Http\Response
     */
-    public function edit($item_id)
+    public function edit($item_id,Request $request)
     {
         if ( Auth::check() ){
             // ログイン済みの時の処理
             $item = Item::find($item_id);
             $category = Category::where('item_id',$item_id)->first();
-            return view('edit.editdaily', compact('item', 'item_id','category'));
+
+            $items = $request->user()->items()->get();
+            $user = $request->user();
+            $tags = $user->tagsearch();
+            $categories = $user->categorysearch();
+
+            return view('edit.editdaily', compact('item', 'item_id','category','items', 'tags', 'categories'));
+
         } else {
             // ログインしていないときの処理
             return view( 'auth.login' );
         }        
+
     }
     
     /**

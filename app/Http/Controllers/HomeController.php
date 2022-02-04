@@ -10,6 +10,7 @@ use App\Models\ItemTags;
 use App\Models\User;
 
 use Illuminate\Support\Facades\DB;
+use SebastianBergmann\CodeUnit\FunctionUnit;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -31,12 +32,12 @@ class HomeController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function index(Request $request)
+    public function home(Request $request)
     {
         $items = $request->user()->items()->get();
         $user = $request->user();
         $tags = $user->tagsearch();
-        $categories = $user->search();
+        $categories = $user->categorysearch();
 
         if ( Auth::check() ){
             // ログイン済みの時の処理
@@ -47,21 +48,38 @@ class HomeController extends Controller
             // ログインしていないときの処理
             return view( 'auth.login' );
         }
+
     }
 
     // カテゴリー選択したアイテムリスト
-    public function show(Request $request)
+    public function show(Request $request, string $category_id)
     {
         $items = $request->user()->items()->get();
         $user = $request->user();
         $tags = $user->tagsearch();
-        $categories = $user->search();
+        $categories = $user->categorysearch();
+        $listitem = $user->listitem($category_id);
 
-        // viewを返す(compactでviewに$items,$tags,$categoriesを渡す)
-        return view('register/list', compact('items', 'tags', 'categories'));
-
-        $shortageitems = $user->shortage();
-
-        return view('register/shortagelist', compact('items', 'tags', 'categories'));
+        return view('register/list', compact('items', 'tags', 'categories', 'listitem'));
     }
+    // 買い物リスト
+    public static function shortageitem(Request $request)
+    {
+        $items = $request->user()->items()->get();
+        $user = $request->user();
+        $tags = $user->tagsearch();
+        $categories = $user->categorysearch();
+        $shortageitems = $user->shortage();
+        return view('register/shortagelist', compact('items', 'tags', 'categories', 'shortageitems'));
+    }
+
+    // 検索機能
+    // public function itemsearch(Request $request)
+    // {
+    //     $keyword_name = $request->name;
+    //     $keyword_category = $request->category;
+    //     $keyword_tag = $request->tag;
+    //     $keyword_place = $request->place;
+    // }
+
 }

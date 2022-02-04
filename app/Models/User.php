@@ -44,7 +44,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * ユーザーの保持する全アイテム
+     * ユーザーの保持する全アイテム・タグ・カテゴリー
      */
     public function items()
     {
@@ -58,19 +58,23 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Category::class);
     }
-    public function search()
+
+// カテゴリー取得
+    public function categorysearch()
     {
-        $search = $this->select('categories.id', 'categories.name')
+        $categorysearch = $this->select('categories.*')
             ->join('items', 'users.id', '=', 'items.user_id')
             ->join('categories', 'items.category_id', '=', 'categories.id')
             ->where('users.id', $this->id)
             ->distinct()
             ->get();
-        return $search;
+        return $categorysearch;
     }
+
+// タグ取得
     public function tagsearch()
     {
-        $tagsearch = $this->select('tags.id', 'tags.tag_name')
+        $tagsearch = $this->select('tags.*')
             ->join('items', 'users.id', '=', 'items.user_id')
             ->join('item_tags', 'items.id', '=', 'item_tags.item_id')
             ->join('tags', 'item_tags.tag_id', '=', 'tags.id')
@@ -80,12 +84,26 @@ class User extends Authenticatable
         return $tagsearch;
     }
 
+    // list画面のアイテム取得
+    public function listitem($category_id)
+    {
+        $listitem = $this->select('items.*')
+            ->join('items', 'users.id', '=', 'items.user_id')
+            ->join('categories', 'items.category_id', '=', 'categories.id')
+            ->where('users.id', $this->id)
+            ->where('categories.id',$category_id)
+            ->get();
+        return $listitem;
+    }
+
+// 在庫不足取得
     public function shortage()
     {
-        $shortage = $this->select('categories.id', 'categories.name')
+        // $shortage = $this->select('items.id', 'items.name','items.image_name','items.stock')
+        $shortage = $this->select('items.*')
             ->join('items', 'users.id', '=', 'items.user_id')
             ->where('users.id', $this->id)
-            ->whereColumn('stock', '<', 'threshold')
+            ->whereColumn('items.stock', '<', 'items.threshold')
             ->get();
         return $shortage;
     }
