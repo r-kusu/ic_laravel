@@ -17,6 +17,7 @@ class AppServiceProvider extends ServiceProvider
             'itemsearch',
             'App\Http\Components\ItemSearch'
         );
+
     }
 
     /**
@@ -28,8 +29,4 @@ class AppServiceProvider extends ServiceProvider
     {
         //
     }
-<<<<<<< HEAD
-}
-=======
-}
->>>>>>> 0c86bbae8f4bc114bef945404c904b1653dc3532
+};
