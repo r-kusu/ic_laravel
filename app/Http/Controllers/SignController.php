@@ -22,7 +22,7 @@ class SignController extends Controller
             return view('home');
         } else {
             // ログインしていないときの処理
-            return view( 'auth.login' );
+            return redirect( 'login' );
         }
     }
 

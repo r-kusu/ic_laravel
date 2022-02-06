@@ -45,7 +45,7 @@ class HomeController extends Controller
             return view('register/index', compact('items', 'tags', 'categories'));
         } else {
             // ログインしていないときの処理
-            return view( 'auth.login' );
+            return redirect( 'login' );
         }
     }
 
