@@ -4,10 +4,10 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
-class AppServiceProvider extends ServiceProvider
+class ItemSearchServiceProvider extends ServiceProvider
 {
     /**
-     * Register any application services.
+     * Register services.
      *
      * @return void
      */
@@ -20,7 +20,7 @@ class AppServiceProvider extends ServiceProvider
     }
 
     /**
-     * Bootstrap any application services.
+     * Bootstrap services.
      *
      * @return void
      */
@@ -28,8 +28,4 @@ class AppServiceProvider extends ServiceProvider
     {
         //
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 0c86bbae8f4bc114bef945404c904b1653dc3532

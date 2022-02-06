@@ -17314,6 +17314,9 @@ header{
 .list-group a:hover{
   color: black;
 }
+.bi{
+  color: white;
+}
 
 /* index画面 */
 .category-index {
