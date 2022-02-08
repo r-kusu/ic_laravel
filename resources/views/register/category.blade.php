@@ -8,18 +8,17 @@
 @section("content")
 <form action="/category/create" method="post" enctype="multipart/form-data">
 @csrf
-<div class="form-group">
-<table class="table table-striped">
-
-<tr class = "name">
-    <th scope="row">ジャンル登録画面</th>
-    <td><p><input class="form-control" type="text" maxlength="50" name="name"></p></td>
-</tr>
-
-<th><button class="btn btn-primary" type="submit">保存</button></th>
-</tr>
+<div class="container">
+    <div class="row bg-secondary">
+        <div class="col-lg-2 text-start">ジャンル登録画面</div>
+        <div class="col-lg-10">
+        <input class="form-control" type="text" maxlength="50" name="name">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm"><button class="btn btn-primary" type="submit">保存</button></div>
+    </div>
 </div>
-</table>
 </form>
 
 

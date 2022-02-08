@@ -4,7 +4,6 @@
 
 @include("layouts.topbar")
 
-
 @section("content")
 
 <form action="/daily/create" method="post" enctype="multipart/form-data">
@@ -31,8 +30,7 @@
             {{$category->name}}
         </option>
         @endforeach
-    </select></p></td>
-    
+    </select></p></td>    
 </tr>    
 
 <tr class= "">
@@ -55,22 +53,45 @@
     <td><p><input class="form-control" type="text" maxlength="50" name="place"></p></td>
 </tr>
 
-<tr class = "tag">
+<!-- 
+    <tr class = "tag">
     <th scope="row">タグ</th>
     <td><div class="form-group">
         <input class="form-control" name="tag_name">
-        <small class="form-text text-muted">ハッシュ”＃”で区切って入力してください</small>   
+        <small class="form-text text-muted">ハッシュ”＃”で区切って入力してください</small>
     </div>
-        
-
-
-
+</tr> 
+-->
+<tr class = "tag">
+    <th scope="row">タグ</th>
+    <td><div class="container"><div class="form-group">
+        <input class="form-control" name="tag_name" value="" id="tagarray">
+        <small class="form-text text-muted">ハッシュ”＃”で区切って入力してください</small>   
+    </div></div>
+</tr>
+<script>
+    /**
+     * These scripts were added for tag suggest functionality Jan. 28 2022 by K
+     */
+    var jstags = [
+        @foreach ($tags as $tag)
+            {tagid: '{{ $tag->id }}', tagname: '{{ $tag->tag_name }}'},
+        @endforeach
+    ];
+    $('#tagarray').suggest('#', {
+        data: jstags,
+        map: function(jstag) {
+            return {
+                value: jstag.tagname,
+                text: '<strong>' + jstag.tagid + '</strong> <small>' + jstag.tagname + '</small>'
+            }
+        }
+    })
+</script>
 
 <th><button class="btn btn-primary" type="submit">保存</button></th>
-</tr>
 </div>
 </table>
 </form>
-
 
 @endsection

@@ -40,11 +40,11 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/daily',[App\Http\Controllers\DailyController::class, 'index']);
 
-Route::post('/daily/create',[App\Http\Controllers\DailyController::class, 'create']);
+Route::post('/daily/create',[App\Http\Controllers\DailyController::class, 'create'])->name('createdaily');
 
 Route::get('/food',function () {return view('register.food');});
 
-Route::get('/editdaily/{itemid}', [App\Http\Controllers\DailyController::class, 'edit']);
+Route::get('/editdaily/{itemid}', [App\Http\Controllers\DailyController::class, 'edit'])->name('editdaily');
 
 Route::put('/editdaily/{itemid}/update', [App\Http\Controllers\DailyController::class, 'update'])->name('edit');
 

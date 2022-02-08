@@ -19,12 +19,20 @@ class CategoryController extends Controller
             'name'=>['required'],
         
         ]);
+        
+        $existed_category = Category::where("name", "=", $request->input('name'))->first();
+        $category_id = "";
 
-        $category = Category::create([
+
+        if ( $existed_category != null ) {
+            $id = $existed_category->id;
+        } else {
+            $category = Category::create([
             
-            'id' =>$request->input('id'),
-            'name'=>$request->input('name'),
-        ]);
+                'id' =>$request->input('id'),
+                'name'=>$request->input('name'),
+            ]);
+        }
     }
 
     
