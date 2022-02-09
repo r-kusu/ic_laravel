@@ -10,16 +10,29 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Tags;
 use App\Models\ItemTags;
 use phpDocumentor\Reflection\DocBlock\Tag;
+use Illuminate\Support\Facades\Auth;
+
 
 class DailyController extends Controller
 {
     //日用品登録画面の表示
-    public function index(){
+    public function index(Request $request){
+        if ( Auth::check() ){
+            // ログイン済みの時の処理
+            //$items = $request->user()->items()->get();
+            //$user = $request->user();
+            //$tags = $user->tagsearch();
+            //$categories = $user->categorysearch();
 
-        $categories =  Category::get();
-        // modified by K at Jan. 28 2022
-        $tags = Tags::all();
-        return view('register.daily',compact('categories','tags'));
+            //return view('register.daily', compact('items', 'tags', 'categories'));
+            $categories =  Category::get();
+            // modified by K at Jan. 28 2022
+            $tags = Tags::all();
+            return view('register.daily',compact('categories','tags'));
+        } else {
+            // ログインしていないときの処理
+            return redirect( 'login' ); // リダイレクトの方が良い！
+        }
     }
 
     //日用品登録処理
@@ -33,11 +46,19 @@ class DailyController extends Controller
             'place'=>['required'],   
         ]);
 
+        // 現在認証しているユーザーのIDを取得
+        $id = Auth::id();
+        // var_dump($id);
+        // exit;
+
+        // dd($request);
         $item = Item::create([
-            // TODO: ログイン情報からユーザーID取得
-            'user_id' => '1',
+            // TODO: ログインしている情報からユーザーID取得
+            'user_id' => $id, 
             'name'=>$request->input('name'),
-            'image_name'=>$request->input('image_name'),
+            'image_name'=>"ダミー",
+            'category_id' =>1, // ダミー―データ
+            // 'image_name'=>$request->file('image_name'),
             'stock'=>$request->input('stock'),
             'threshold'=>$request->input('threshold'),
             'category_id'=>$request->input('category_id'),
@@ -92,25 +113,43 @@ class DailyController extends Controller
     * @param  int  $item_id
     * @return \Illuminate\Http\Response
     */
-    public function edit($item_id)
+    public function edit($item_id,Request $request)
     {
-        $item = Item::find($item_id);
-        // $category = Category::where('item_id',$item_id)->first();
-        // カテゴリの検索
-        $selected_category =  Category::find($item->category_id);
-        // $selected_category =  Category::where('id', $item->category_id)->first();
-        $categories = Category::all();
-        
-        //タグの検索 
-        $selected_tags = Item::find($item_id)->tags()->orderBy('tag_name')->get();
-        $tags = Tags::all();
+       
+        if ( Auth::check() ){
+            // ログイン済みの時の処理
+            /*
+            $item = Item::find($item_id);
+            $category = Category::where('item_id',$item_id)->first();
 
-        // foreach($categories as $category){
-        //     if(!in_array($category->name,$names)){
-        //         $names[] = $category->name;
-        //     }
-        return view('edit.editdaily', compact('item', 'selected_category', 'categories', 'selected_tags', 'tags'));
-        
+            $items = $request->user()->items()->get();
+            $user = $request->user();
+            $tags = $user->tagsearch();
+            $categories = $user->categorysearch();
+
+            return view('edit.editdaily', compact('item', 'item_id','category','items', 'tags', 'categories'));
+            */
+            $item = Item::find($item_id);
+            // $category = Category::where('item_id',$item_id)->first();
+            // カテゴリの検索
+            $selected_category =  Category::find($item->category_id);
+            // $selected_category =  Category::where('id', $item->category_id)->first();
+            $categories = Category::all();
+            
+            //タグの検索 
+            $selected_tags = Item::find($item_id)->tags()->orderBy('tag_name')->get();
+            $tags = Tags::all();
+    
+            // foreach($categories as $category){
+            //     if(!in_array($category->name,$names)){
+            //         $names[] = $category->name;
+            //     }
+            return view('edit.editdaily', compact('item', 'selected_category', 'categories', 'selected_tags', 'tags'));
+        } else {
+            // ログインしていないときの処理
+            return redirect( 'login' );
+        }        
+
     }
 
     /**
