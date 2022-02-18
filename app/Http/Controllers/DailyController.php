@@ -9,6 +9,7 @@ use Validator;
 use Illuminate\Support\Facades\DB;
 use App\Models\Tags;
 use App\Models\ItemTags;
+use Illuminate\Support\Facades\Auth;
 
 class DailyController extends Controller
 {
@@ -22,8 +23,10 @@ class DailyController extends Controller
             //$categories = $user->categorysearch();
         }
         $categories =  Category::get();
+        $tags = Tags::all();
+        $items = $request->user()->items()->get();
 
-        return view('register.daily',compact('categories'));
+        return view('register.daily',compact('categories', 'tags', 'items'));
     }
 
     //日用品登録処理

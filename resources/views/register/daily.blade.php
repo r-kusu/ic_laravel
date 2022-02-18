@@ -2,7 +2,7 @@
 
 @section('title', '日用品登録')
 
-@include("layouts.topbar")
+@include("layouts.topbar", ['tags' => $tags, 'items' => $items])
 
 @section("content")
 
@@ -89,5 +89,5 @@
 </div>
 </table>
 </form>
-
+@endif
 @endsection
