@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\HTTP\Controllers\HomeController;
+use App\HTTP\Controllers\DailyController;
+use App\Http\Controllers\Auth\LoginController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,33 +19,27 @@ use App\HTTP\Controllers\HomeController;
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\SignController::class, 'func']);
-Route::post('/register', [App\Http\Controllers\SignController::class, 'register']);
+Route::get('/', [HomeController::class, 'home'])->name('home')->middleware('auth');
+Route::get('/home', [HomeController::class, 'home'])->name('home')->middleware('auth');
 
-Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('register/index', function () {
-    return view('register.index');
-});
-Route::get('register/list', function () {
-    return view('register.list');
-});
-
+Route::get('/daily',[DailyController::class, 'index'])->middleware('auth');
 
 // Route::group(['plefix'=>'register'],function(){
 //     Route::get('/index',[HomeController::class, 'index'])->name('register.index');
 // });
-// Auth::routes();
 
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::post('/daily/create',[App\Http\Controllers\DailyController::class, 'create'])->middleware('auth');
 
-Route::get('/daily',[App\Http\Controllers\DailyController::class, 'index']);
+Route::post('/daily/create',[App\Http\Controllers\DailyController::class, 'create'])->name('createdaily');
+Route::get('/food',function () {return view('register.food');})->middleware('auth');
 
-Route::post('/daily/create',[App\Http\Controllers\DailyController::class, 'create']);
+Route::get('/editdaily/{itemid}', [App\Http\Controllers\DailyController::class, 'edit'])->middleware('auth');
+Route::put('/editdaily/{itemid}/update', [App\Http\Controllers\DailyController::class, 'update'])->name('edit')->middleware('auth');
+Route::delete('/editdaily/{itemid}',[App\Http\Controllers\DailyController::class, 'delete'])->name('delete.editdaily')->middleware('auth');
 
-Route::get('/food',function () {return view('register.food');});
+//検索ボタンを押すとコントローラのindexメソッドを実行します
+Route::get('/daily/create',[App\Http\Controllers\DailyController::class, 'create'])->name('create');
 
 Route::get('/editdaily/{itemid}', [App\Http\Controllers\DailyController::class, 'edit']);
 
@@ -57,3 +54,8 @@ Route::get('/daily/create',[App\Http\Controllers\DailyController::class, 'create
 Route::get('register/category', [App\Http\Controllers\CategoryController::class, 'index'])->name('category');
 
 Route::post('/category/create', [App\Http\Controllers\CategoryController::class, 'create']);
+Route::get('/list/{id}', [HomeController::class, 'show'])->name('list')->middleware('auth');
+Route::get('/shortagelist', [HomeController::class, 'shortageitem'])->name('shortagelist')->middleware('auth');
+Route::get('/search', [HomeController::class, 'itemsearch'])->name('search')->middleware('auth');
+
+Route::get('/logout',[LoginController::class,'logout'])->middleware('auth');

@@ -16,7 +16,14 @@ class SignController extends Controller
         // ->get();
 
         // viewを返す(compactでviewに$categoriesを渡す)
-        return view('home');
+
+        if ( Auth::check() ){
+            // ログイン済みの時の処理
+            return view('home');
+        } else {
+            // ログインしていないときの処理
+            return redirect( 'login' );
+        }
     }
 
     /**

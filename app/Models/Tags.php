@@ -21,5 +21,13 @@ class Tags extends Model
     public function item(){
         return $this->belongsToMany(item::class,'item_tags','item_id','tag_id');
     } 
-    
+
+    /**
+     * ユーザーの保持する全アイテム
+     */
+    public function items()
+    {
+        return $this->hasMany(Item::class);
+    }
+
 }
