@@ -6,18 +6,26 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Item;
 use Validator;
+use Illuminate\Support\Facades\Auth;
 
 
 class DailyController extends Controller
 {
     //日用品登録画面の表示
     public function index(Request $request){
-        $items = $request->user()->items()->get();
-        $user = $request->user();
-        $tags = $user->tagsearch();
-        $categories = $user->categorysearch();
+        if ( Auth::check() ){
+          // ログイン済みの時の処理
+          $items = $request->user()->items()->get();
+          $user = $request->user();
+          $tags = $user->tagsearch();
+          $categories = $user->categorysearch();
 
-        return view('register.daily', compact('items', 'tags', 'categories'));
+          return view('register.daily', compact('items', 'tags', 'categories'));
+
+        } else {
+            // ログインしていないときの処理
+            return view( 'auth.login' );
+        }
     }
     
 
@@ -32,13 +40,21 @@ class DailyController extends Controller
             'place'=>['required'],   
         ]);
 
+        // 現在認証しているユーザーのIDを取得
+        $id = Auth::id();
+        // var_dump($id);
+        // exit;
+
+        // dd($request);
         $item = Item::create([
-            // TODO: ログイン情報からユーザーID取得
-            'user_id' => '1',
+            // TODO: ログインしている情報からユーザーID取得
+            'user_id' => $id, 
             'name'=>$request->input('name'),
-            'image_name'=>$request->input('image_name'),
+            'image_name'=>"ダミー",
+            // 'image_name'=>$request->file('image_name'),
             'stock'=>$request->input('stock'),
             'threshold'=>$request->input('threshold'),
+            'category_id' =>1, // ダミー―データ
             'place'=>$request->input('place')
         ]);
         
@@ -60,16 +76,23 @@ class DailyController extends Controller
     */
     public function edit($item_id,Request $request)
     {
-        $item = Item::find($item_id);
-        $category = Category::where('item_id',$item_id)->first();
-        
-        $items = $request->user()->items()->get();
-        $user = $request->user();
-        $tags = $user->tagsearch();
-        $categories = $user->categorysearch();
+        if ( Auth::check() ){
+            // ログイン済みの時の処理
+            $item = Item::find($item_id);
+            $category = Category::where('item_id',$item_id)->first();
 
-        return view('edit.editdaily', compact('item', 'item_id','category','items', 'tags', 'categories'));
-        
+            $items = $request->user()->items()->get();
+            $user = $request->user();
+            $tags = $user->tagsearch();
+            $categories = $user->categorysearch();
+
+            return view('edit.editdaily', compact('item', 'item_id','category','items', 'tags', 'categories'));
+
+        } else {
+            // ログインしていないときの処理
+            return view( 'auth.login' );
+        }        
+
     }
     
     /**

@@ -11,6 +11,7 @@ use App\Models\User;
 
 use Illuminate\Support\Facades\DB;
 use SebastianBergmann\CodeUnit\FunctionUnit;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -38,7 +39,16 @@ class HomeController extends Controller
         $tags = $user->tagsearch();
         $categories = $user->categorysearch();
 
-        return view('register/index', compact('items', 'tags', 'categories'));
+        if ( Auth::check() ){
+            // ログイン済みの時の処理
+            $categories=Category::select('name')->get();
+            // viewを返す(compactでviewに$items,$tags,$categoriesを渡す)
+            return view('register/index', compact('items', 'tags', 'categories'));
+        } else {
+            // ログインしていないときの処理
+            return view( 'auth.login' );
+        }
+
     }
 
     // カテゴリー選択したアイテムリスト
