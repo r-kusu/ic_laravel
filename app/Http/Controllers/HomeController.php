@@ -74,12 +74,42 @@ class HomeController extends Controller
     }
 
     // 検索機能
-    // public function itemsearch(Request $request)
-    // {
+
+    // Qiita
+    // public function search(Request $request) {
     //     $keyword_name = $request->name;
     //     $keyword_category = $request->category;
     //     $keyword_tag = $request->tag;
     //     $keyword_place = $request->place;
-    // }
+
+    //     if(!empty($keyword_name) && empty($keyword_category) && empty($keyword_tag) && ($keyword_place)){
+    //         $query = Items::query();
+    //         $results = $query->where('name','like','%' .$keyword_name. '%')->get();
+    //         $message = "検索条件:".$keyword_name;
+    //         return view('register/search')->with([
+    //             'results'=>$results,
+    //             'message'=>$message,
+    //         ]);
+    //     }
+
+
+
+
+    // tetatail
+//     public function itemsearch(Request $request)
+//     {
+//         $keyword_name = $request->input('keyword');
+//         $keyword_category = $request->input('category');
+//         $keyword_tag = $request->input('tag');
+//         $keyword_place = $request->input('place');
+// if(isset($keyword_category)){
+
+// }
+//         return view('register/search',compact());
+//     }
+
+
+
+
 
 }

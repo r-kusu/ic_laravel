@@ -1,4 +1,4 @@
-@extends('layouts.app')
+<!-- @extends('layouts.app')
 
 @section('title','検索結果一覧')
 @include('layouts.head')
@@ -9,10 +9,11 @@
 <div>
     @if(!empty($message))
     <div class="alert alert-primary" role="alert">{{ $message}}</div>
-    @endif
+    @endif -->
 
     <!-- サーチ用の引数に設定変更要 -->
-    @foreach($listitem as $listitem)
+    <!-- @if(isstet($results))
+    @foreach($results as $result)
     <div class="card mb-3" style="max-width: 400px;">
         <div class="row g-0">
             <div class="col-md-4">
@@ -28,5 +29,6 @@
         </div>
     </div>
     @endforeach
+    @endif
 </div>
-@endsection
+@endsection -->

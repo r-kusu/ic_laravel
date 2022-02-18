@@ -28,9 +28,9 @@ Route::get('/daily',[DailyController::class, 'index'])->middleware('auth');
 // });
 
 
-Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('auth');
+//Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('auth');
 
-Route::get('/daily',[App\Http\Controllers\DailyController::class, 'index'])->middleware('auth');
+//Route::get('/daily',[App\Http\Controllers\DailyController::class, 'index'])->middleware('auth');
 
 Route::post('/daily/create',[App\Http\Controllers\DailyController::class, 'create'])->middleware('auth');
 
