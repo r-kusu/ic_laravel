@@ -25,9 +25,11 @@
 
 <tr class = "category">
     <th scope="row">ジャンル</th>
-    <td><p><select class="form-control" name="category_name">
-        @foreach($names as $name)
-        <option value={{$name}}>{{$name}}</option>
+    <td><p><select class="form-control" name="category_id">
+        @foreach($categories as $category)
+        <option value={{$category->id}}>
+            {{$category->name}}
+        </option>
         @endforeach
     </select></p></td>
     
@@ -43,20 +45,55 @@
     <td><p><input class="form-control" type="text" maxlength="3" name="threshold"></p></td>
 </tr>
 
-<!-- <tr>
-    <th scope="row"> 使用場所</th>
-    <td><p><input type="text" maxlength="50" name=""></p></td>
-</tr> -->
-
 <tr>
     <th scope="row">保管場所</th>
     <td><p><input class="form-control" type="text" maxlength="50" name="place"></p></td>
 </tr>
 
-<!-- <tr>
-    <th scope="row">購入場所</th>
-    <td><p><input type="text" name=""></p></td>
-</tr> -->
+<tr class = "tag">
+    <th scope="row">タグ</th>
+    <td><div class="form-group">
+        <input class="form-control" name="tag_name">
+        <small class="form-text text-muted">ハッシュ”＃”で区切って入力してください</small>
+        <div class="container py-5">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="form-group">
+                <label for="comment" class="font-weight-bold">Start typing with "#"</label>
+                <input type="text" class="form-control" rows="5" id="comment"></input>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="app.js"></script>
+<script src="bootstrap-suggest.min.js"></script>
+<script>
+    var users = [
+    {username: 'lodev09', fullname: 'Jovanni Lo'},
+    {username: 'foo', fullname: 'Foo User'},
+    {username: 'bar', fullname: 'Bar User'},
+    {username: 'twbs', fullname: 'Twitter Bootstrap'},
+    {username: 'john', fullname: 'John Doe'},
+    {username: 'jane', fullname: 'Jane Doe'},
+    ];
+    $('#comment').suggest('#', {
+    data: users,
+    map: function(user) {
+        return {
+        value: user.username,
+        text: '<strong>'+user.username+'</strong> <small>'+user.fullname+'</small>'
+        }
+    }
+    })
+
+</script> -->
+   
+    </div>
+        
+
+
 
 
 <th><button class="btn btn-primary" type="submit">保存</button></th>
