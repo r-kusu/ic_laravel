@@ -24,7 +24,7 @@ class DailyController extends Controller
 
         } else {
             // ログインしていないときの処理
-            return view( 'auth.login' );
+            return redirect( 'login' ); // リダイレクトの方が良い！
         }
     }
     
@@ -51,10 +51,10 @@ class DailyController extends Controller
             'user_id' => $id, 
             'name'=>$request->input('name'),
             'image_name'=>"ダミー",
+            'category_id' =>1, // ダミー―データ
             // 'image_name'=>$request->file('image_name'),
             'stock'=>$request->input('stock'),
             'threshold'=>$request->input('threshold'),
-            'category_id' =>1, // ダミー―データ
             'place'=>$request->input('place')
         ]);
         
@@ -90,7 +90,7 @@ class DailyController extends Controller
 
         } else {
             // ログインしていないときの処理
-            return view( 'auth.login' );
+            return redirect( 'login' );
         }        
 
     }

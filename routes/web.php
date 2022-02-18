@@ -18,20 +18,19 @@ use App\Http\Controllers\Auth\LoginController;
 
 Auth::routes();
 
-Route::get('/', [HomeController::class, 'home'])->name('home');
-Route::get('/home', [HomeController::class, 'home'])->name('home');
+Route::get('/', [HomeController::class, 'home'])->name('home')->middleware('auth');
+Route::get('/home', [HomeController::class, 'home'])->name('home')->middleware('auth');
 
-Route::get('/daily',[DailyController::class, 'index']);
+Route::get('/daily',[DailyController::class, 'index'])->middleware('auth');
 
 // Route::group(['plefix'=>'register'],function(){
 //     Route::get('/index',[HomeController::class, 'index'])->name('register.index');
 // });
-Auth::routes();
 
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('auth');
 
-Route::get('/daily',[App\Http\Controllers\DailyController::class, 'index']);
+Route::get('/daily',[App\Http\Controllers\DailyController::class, 'index'])->middleware('auth');
 
 Route::post('/daily/create',[App\Http\Controllers\DailyController::class, 'create'])->middleware('auth');
 
@@ -41,8 +40,8 @@ Route::get('/editdaily/{itemid}', [App\Http\Controllers\DailyController::class, 
 Route::put('/editdaily/{itemid}/update', [App\Http\Controllers\DailyController::class, 'update'])->name('edit')->middleware('auth');
 Route::delete('/editdaily/{itemid}',[App\Http\Controllers\DailyController::class, 'delete'])->name('delete.editdaily')->middleware('auth');
 
-Route::get('/list/{id}', [HomeController::class, 'show'])->name('list');
-Route::get('/shortagelist', [HomeController::class, 'shortageitem'])->name('shortagelist');
-// Route::get('/search', [HomeController::class, 'itemsearch'])->name('search');
+Route::get('/list/{id}', [HomeController::class, 'show'])->name('list')->middleware('auth');
+Route::get('/shortagelist', [HomeController::class, 'shortageitem'])->name('shortagelist')->middleware('auth');
+Route::get('/search', [HomeController::class, 'itemsearch'])->name('search')->middleware('auth');
 
-Route::get('/logout',[LoginController::class,'logout']);
+Route::get('/logout',[LoginController::class,'logout'])->middleware('auth');
