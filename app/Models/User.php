@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -59,7 +60,7 @@ class User extends Authenticatable
         return $this->belongsToMany(Category::class);
     }
 
-// カテゴリー取得
+    // カテゴリー取得
     public function categorysearch()
     {
         $categorysearch = $this->select('categories.*')
@@ -71,7 +72,7 @@ class User extends Authenticatable
         return $categorysearch;
     }
 
-// タグ取得
+    // タグ取得
     public function tagsearch()
     {
         $tagsearch = $this->select('tags.*')
@@ -91,12 +92,12 @@ class User extends Authenticatable
             ->join('items', 'users.id', '=', 'items.user_id')
             ->join('categories', 'items.category_id', '=', 'categories.id')
             ->where('users.id', $this->id)
-            ->where('categories.id',$category_id)
+            ->where('categories.id', $category_id)
             ->get();
         return $listitem;
     }
 
-// 在庫不足取得
+    // 在庫不足取得
     public function shortage()
     {
         // $shortage = $this->select('items.id', 'items.name','items.image_name','items.stock')
@@ -107,4 +108,53 @@ class User extends Authenticatable
             ->get();
         return $shortage;
     }
+
+        // 検索機能
+
+        // 独自
+// public function itemsearch()
+// {
+//     $itemsearch = $this->select('items.*')
+//         ->join('items', 'users.id', '=', 'items.user_id')
+//         ->join('item_tags', 'items.id', '=', 'item_tags.item_id')
+//         ->join('tags', 'item_tags.tag_id', '=', 'tags.id')
+//         ->where('users.id', $this->id)
+        
+//         ->where()
+//         ->get()
+// return $itemsearch;
+// }
+
+
+
+
+
+
+    //    Qiita 
+/**
+ * 絞り込み・キーワード検索
+ * @param \Illuminate\Database\Eloquent\Builder
+ * @param array
+ * @return \Illuminate\Database\Eloquent\Builder
+ */
+// public function scopeSearch(Builder $query,array $params): Builder
+// {
+//     // カテゴリー絞り込み
+//     if(!empty($params['category'])) $query->where('category',$params['category'])
+// }
+
+
+
+        
+        // public function itemsearch(Request $request)
+        // {
+        //     $keyword_name = $request->input('keyword');
+        //     $keyword_category = $request->input('category');
+        //     $keyword_tag = $request->input('tag');
+        //     $keyword_place = $request->input('place');
+    
+            
+    
+        //     return $itemsearch();
+        // }    
 }

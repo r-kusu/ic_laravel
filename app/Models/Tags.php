@@ -14,7 +14,13 @@ class Tags extends Model
         'tag_name',
         'updated_at',
         'created_at',
-    ];
+        ];
+
+    //中間テーブルのリレーション設定
+
+    public function item(){
+        return $this->belongsToMany(item::class,'item_tags','item_id','tag_id');
+    } 
 
     /**
      * ユーザーの保持する全アイテム

@@ -21,12 +21,12 @@ class Item extends Model
         'updated_at',
         'created_at',
         ];
+    
+    //中間テーブルのリレーション設定
 
-        /*
-        * アイテムを保有するユーザーの取得
-        */
-        public function user()
-        {
-            return $this->belongsTo(User::class);
-        }
+    public function Tags(){
+        return $this->belongsToMany(Tags::class,'item_tags','item_id','tag_id');
+    }
+
+    
 }

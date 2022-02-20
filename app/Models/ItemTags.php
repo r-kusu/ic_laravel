@@ -15,4 +15,10 @@ class ItemTags extends Model
     'updated_at',
     'created_at',
     ];
+
+    public static function tags($itemid) {
+        $tags = ItemTags::where("item_id", $itemid)
+            ->join("tags", 'tags.id', '=', 'item_tags.tag_id');
+        return $tags;
+    }
 }
