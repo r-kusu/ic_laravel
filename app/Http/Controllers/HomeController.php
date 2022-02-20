@@ -39,15 +39,9 @@ class HomeController extends Controller
         $tags = $user->tagsearch();
         $categories = $user->categorysearch();
 
-        if ( Auth::check() ){
-            // ログイン済みの時の処理
             // $categories=Category::select('name')->get();
             // viewを返す(compactでviewに$items,$tags,$categoriesを渡す)
             return view('register/index', compact('items', 'tags', 'categories'));
-        } else {
-            // ログインしていないときの処理
-            return redirect( 'login' );
-        }
 
     }
 

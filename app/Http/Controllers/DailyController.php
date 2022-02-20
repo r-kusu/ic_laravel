@@ -13,19 +13,12 @@ class DailyController extends Controller
 {
     //日用品登録画面の表示
     public function index(Request $request){
-        if ( Auth::check() ){
-          // ログイン済みの時の処理
-          $items = $request->user()->items()->get();
-          $user = $request->user();
-          $tags = $user->tagsearch();
-          $categories = $user->categorysearch();
+        $items = $request->user()->items()->get();
+        $user = $request->user();
+        $tags = $user->tagsearch();
+        $categories = $user->categorysearch();
 
-          return view('register.daily', compact('items', 'tags', 'categories'));
-
-        } else {
-            // ログインしていないときの処理
-            return redirect( 'login' ); // リダイレクトの方が良い！
-        }
+        return view('register.daily', compact('items', 'tags', 'categories'));
     }
     
 
@@ -63,7 +56,6 @@ class DailyController extends Controller
             'name'=>$request->input('category_name'),
             'item_id'=>$item->id
         ]);
-        
         return redirect('/daily');
     }
 
@@ -76,23 +68,16 @@ class DailyController extends Controller
     */
     public function edit($item_id,Request $request)
     {
-        if ( Auth::check() ){
-            // ログイン済みの時の処理
+    
             $item = Item::find($item_id);
-            $category = Category::where('item_id',$item_id)->first();
+        $category = Category::where('item_id',$item_id)->first();
 
-            $items = $request->user()->items()->get();
-            $user = $request->user();
-            $tags = $user->tagsearch();
-            $categories = $user->categorysearch();
+        $items = $request->user()->items()->get();
+        $user = $request->user();
+        $tags = $user->tagsearch();
+        $categories = $user->categorysearch();
 
-            return view('edit.editdaily', compact('item', 'item_id','category','items', 'tags', 'categories'));
-
-        } else {
-            // ログインしていないときの処理
-            return redirect( 'login' );
-        }        
-
+        return view('edit.editdaily', compact('item', 'item_id','category','items', 'tags', 'categories'));
     }
     
     /**
