@@ -6,7 +6,6 @@
 
 @section("content")
 
-@if( Auth::check() )
 <form action="/daily/create" method="post" enctype="multipart/form-data">
 @csrf
 <div class="form-group">
@@ -89,5 +88,4 @@
 </div>
 </table>
 </form>
-@endif
 @endsection

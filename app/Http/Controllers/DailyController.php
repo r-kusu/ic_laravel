@@ -15,13 +15,10 @@ class DailyController extends Controller
 {
     //日用品登録画面の表示
     public function index(Request $request){
-        if ( Auth::check() ){
-            // ログイン済みの時の処理
             //$items = $request->user()->items()->get();
             //$user = $request->user();
             //$tags = $user->tagsearch();
             //$categories = $user->categorysearch();
-        }
         $categories =  Category::get();
         $tags = Tags::all();
         $items = $request->user()->items()->get();
@@ -42,10 +39,6 @@ class DailyController extends Controller
 
         // 現在認証しているユーザーのIDを取得
         $id = Auth::id();
-        // var_dump($id);
-        // exit;
-
-        // dd($request);
         $item = Item::create([
             // TODO: ログインしている情報からユーザーID取得
             'user_id' => $id, 
@@ -109,9 +102,6 @@ class DailyController extends Controller
     */
     public function edit($item_id,Request $request)
     {
-       
-        if ( Auth::check() ){
-            // ログイン済みの時の処理
             /*
             $item = Item::find($item_id);
             $category = Category::where('item_id',$item_id)->first();
@@ -138,11 +128,7 @@ class DailyController extends Controller
             //     if(!in_array($category->name,$names)){
             //         $names[] = $category->name;
             //     }
-            return view('edit.editdaily', compact('item', 'selected_category', 'categories', 'selected_tags', 'tags'));
-        } else {
-            // ログインしていないときの処理
-            return redirect( 'login' );
-        }        
+            return view('edit.editdaily', compact('item', 'selected_category', 'categories', 'selected_tags', 'tags'));    
 
         return view('edit.editdaily', compact('item', 'item_id','category','items', 'tags', 'categories'));
     }
