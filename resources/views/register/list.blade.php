@@ -9,7 +9,7 @@
 @section('content')
 
 @foreach($listitem as $listitem)
-<div class="card mb-3" style="max-width: 400px;">
+<div class="card m-2 d-inline-block" style="min-width: 350px;">
     <div class="row g-0">
         <div class="col-md-4">
             <img src="{{$listitem->image_name}}" alt="アイテム画像">

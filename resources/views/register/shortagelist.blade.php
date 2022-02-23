@@ -9,7 +9,7 @@
 @section('content')
 
 @foreach($shortageitems as $shortageitem)
-<div class="card mb-3" style="max-width: 400px;">
+<div class="card m-2 d-inline-block" style="min-width: 350px;max-width: 350px">
     <div class="row g-0">
         <div class="col-md-4">
             <img src="{{$shortageitem->image_name}}" alt="アイテム画像">
