@@ -19,6 +19,7 @@
                 <h5 class="card-title">{{$listitem->name}}</h5>
                 <div class="card-text">残り{{$listitem->stock}}個</div>
                 <a class="btn btn-danger" href="{{ url('/editdaily/{item_id}') }}" role="button">変更</a>
+            </div>
         </div>
     </div>
 </div>
