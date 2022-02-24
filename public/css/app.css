@@ -17333,11 +17333,14 @@ header{
 }
 
 /* 各種アイテム一覧 */
-#item {
-    border: 1.5px solid;
-    padding: 0.5rem;
-    margin: 10px;
-    width: 300px;
+.item-card {
+  width: 350px;
+  height: 150px;
+}
+.item-name {
+  height: 50px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .d-print-none {
