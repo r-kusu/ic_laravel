@@ -6,7 +6,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Item;
 use Validator;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Tags;
 use App\Models\ItemTags;
 use Illuminate\Support\Facades\Auth;
@@ -59,14 +59,33 @@ class DailyController extends Controller
             // TODO: ログインしている情報からユーザーID取得
             'user_id' => $id, 
             'name'=>$request->input('name'),
-            'image_name'=>"ダミー",
+            'image_name'=>$request->file('image_name'),
             'category_id' =>1, // ダミー―データ
-            // 'image_name'=>$request->file('image_name'),
             'stock'=>$request->input('stock'),
             'threshold'=>$request->input('threshold'),
             'category_id'=>$request->input('category_id'),
             'place'=>$request->input('place')
         ]);
+
+        // アップロードした画像を取得
+        $image_name = $request->file('image_name');
+        // 画像名を取得
+        $name = $image_name->getClientOriginalName();
+        // アップロードした画像を一時保存フォルダ（tmp）へと保存する
+        $image_name->storeAs('public/images/tmp/', $name);
+        //  viewで表示するためのURL
+        $response['image_path'] = Storage::url('public/images/tmp/'. $name);
+        // アップロードした画像のファイル名を取得
+        // view側でファイル名をpostするようにしておく
+        $name = $request->get('image');
+        // アップロードしたファイルを本番ディレクトリに公開
+        if($name) {
+        // 本番ディレクトリに同名ファイルが存在する場合は削除
+        Storage::delete('public/images/'. $name);
+        // ファイルを移動
+        Storage::move('public/images/tmp/'. $name, 'public/images/'. $name);
+
+
         
         // vvvv The tag functionality section is modified by K, Jan. 28 2022 vvvv
         // requestのtag_nameには"#タグ1 #タグ2 #タグ3"とスペース区切り，かつ１つのタグに#記号が付与されている前提
@@ -106,6 +125,7 @@ class DailyController extends Controller
         
         return view('register.daily',compact('names','categories'));
     }
+    }    
 //     return view('register.daily',compact('names','categories'));
 
     
