@@ -12,27 +12,19 @@ class CategoryController extends Controller
     return view('register.category');
     }
 
-    //カテゴリー名登録処理
+    //日用品登録処理
     public function create(Request $request){
         $request->validate([
             
             'name'=>['required'],
         
         ]);
-        
-        $existed_category = Category::where("name", "=", $request->input('name'))->first();
-        $category_id = "";
 
-
-        if ( $existed_category != null ) {
-            $id = $existed_category->id;
-        } else {
-            $category = Category::create([
+        $category = Category::create([
             
-                'id' =>$request->input('id'),
-                'name'=>$request->input('name'),
-            ]);
-        }
+            'id' =>$request->input('id'),
+            'name'=>$request->input('name'),
+        ]);
     }
 
     

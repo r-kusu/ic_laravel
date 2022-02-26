@@ -29,6 +29,10 @@ Route::get('/daily',[DailyController::class, 'index'])->middleware('auth');
 // });
 
 
+//Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('auth');
+
+//Route::get('/daily',[App\Http\Controllers\DailyController::class, 'index'])->middleware('auth');
+
 Route::post('/daily/create',[App\Http\Controllers\DailyController::class, 'create'])->middleware('auth');
 
 Route::post('/daily/create',[App\Http\Controllers\DailyController::class, 'create'])->name('createdaily');
@@ -37,6 +41,15 @@ Route::get('/food',function () {return view('register.food');})->middleware('aut
 Route::get('/editdaily/{itemid}', [App\Http\Controllers\DailyController::class, 'edit'])->name('editdaily')->middleware('auth');
 Route::put('/editdaily/{itemid}/update', [App\Http\Controllers\DailyController::class, 'update'])->name('edit')->middleware('auth');
 Route::delete('/editdaily/{itemid}',[App\Http\Controllers\DailyController::class, 'delete'])->name('delete.editdaily')->middleware('auth');
+
+//検索ボタンを押すとコントローラのindexメソッドを実行します
+Route::get('/daily/create',[App\Http\Controllers\DailyController::class, 'create'])->name('create');
+
+Route::get('/editdaily/{itemid}', [App\Http\Controllers\DailyController::class, 'edit']);
+
+Route::put('/editdaily/{itemid}/update', [App\Http\Controllers\DailyController::class, 'update'])->name('edit');
+
+Route::delete('/editdaily/{itemid}',[App\Http\Controllers\DailyController::class, 'delete'])->name('delete.editdaily');
 
 //検索ボタンを押すとコントローラのindexメソッドを実行します
 Route::get('/daily/create',[App\Http\Controllers\DailyController::class, 'create'])->name('create');

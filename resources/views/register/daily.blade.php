@@ -2,7 +2,7 @@
 
 @section('title', '日用品登録')
 
-@include("layouts.topbar", ['items' => $items])
+@include("layouts.topbar", ['tags' => $tags, 'items' => $items])
 
 @section("content")
 
@@ -43,11 +43,6 @@
     <th scope="row">規定数</th>
     <td><p><input class="form-control" type="text" maxlength="3" name="threshold"></p></td>
 </tr>
-
-<!-- <tr>
-    <th scope="row"> 使用場所</th>
-    <td><p><input type="text" maxlength="50" name=""></p></td>
-</tr> -->
 
 <tr>
     <th scope="row">保管場所</th>
@@ -95,5 +90,4 @@
 </table>
 </form>
 @endif
-
 @endsection

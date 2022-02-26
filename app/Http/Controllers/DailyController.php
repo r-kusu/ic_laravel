@@ -9,9 +9,7 @@ use Validator;
 use Illuminate\Support\Facades\DB;
 use App\Models\Tags;
 use App\Models\ItemTags;
-use phpDocumentor\Reflection\DocBlock\Tag;
 use Illuminate\Support\Facades\Auth;
-
 
 class DailyController extends Controller
 {
@@ -33,6 +31,11 @@ class DailyController extends Controller
             // ログインしていないときの処理
             return redirect( 'login' ); // リダイレクトの方が良い！
         }
+        //$categories =  Category::get();
+        //$tags = Tags::all();
+        //$items = $request->user()->items()->get();
+
+        //return view('register.daily',compact('categories', 'tags', 'items'));
     }
 
     //日用品登録処理
@@ -100,8 +103,8 @@ class DailyController extends Controller
                 "tag_id" => $existedtag->id,
             ]);
         }
-        //暫定的に日用品編集画面に飛ばしている 
-        return redirect(route("editdaily", ['itemid' => $item->id]));
+        
+        return view('register.daily',compact('names','categories'));
     }
 //     return view('register.daily',compact('names','categories'));
 
