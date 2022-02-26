@@ -19,7 +19,7 @@ class DailyController extends Controller
     public function index(Request $request){
         if ( Auth::check() ){
             // ログイン済みの時の処理
-            //$items = $request->user()->items()->get();
+            $items = $request->user()->items()->get();
             //$user = $request->user();
             //$tags = $user->tagsearch();
             //$categories = $user->categorysearch();
@@ -28,7 +28,7 @@ class DailyController extends Controller
             $categories =  Category::get();
             // modified by K at Jan. 28 2022
             $tags = Tags::all();
-            return view('register.daily',compact('categories','tags'));
+            return view('register.daily',compact('items', 'categories','tags'));
         } else {
             // ログインしていないときの処理
             return redirect( 'login' ); // リダイレクトの方が良い！
@@ -115,7 +115,7 @@ class DailyController extends Controller
     */
     public function edit($item_id,Request $request)
     {
-       
+
         if ( Auth::check() ){
             // ログイン済みの時の処理
             /*
@@ -129,6 +129,7 @@ class DailyController extends Controller
 
             return view('edit.editdaily', compact('item', 'item_id','category','items', 'tags', 'categories'));
             */
+            $items = $request->user()->items()->get();
             $item = Item::find($item_id);
             // $category = Category::where('item_id',$item_id)->first();
             // カテゴリの検索
@@ -144,7 +145,7 @@ class DailyController extends Controller
             //     if(!in_array($category->name,$names)){
             //         $names[] = $category->name;
             //     }
-            return view('edit.editdaily', compact('item', 'selected_category', 'categories', 'selected_tags', 'tags'));
+            return view('edit.editdaily', compact('item', 'selected_category', 'categories', 'selected_tags', 'tags', 'items'));
         } else {
             // ログインしていないときの処理
             return redirect( 'login' );
