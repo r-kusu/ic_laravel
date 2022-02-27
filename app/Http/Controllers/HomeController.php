@@ -12,6 +12,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use SebastianBergmann\CodeUnit\FunctionUnit;
 use Illuminate\Support\Facades\Auth;
+use Laravel\Ui\Presets\React;
 
 class HomeController extends Controller
 {
@@ -39,16 +40,15 @@ class HomeController extends Controller
         $tags = $user->tagsearch();
         $categories = $user->categorysearch();
 
-        if ( Auth::check() ){
+        if (Auth::check()) {
             // ログイン済みの時の処理
             // $categories=Category::select('name')->get();
             // viewを返す(compactでviewに$items,$tags,$categoriesを渡す)
             return view('register/index', compact('items', 'tags', 'categories'));
         } else {
             // ログインしていないときの処理
-            return redirect( 'login' );
+            return redirect('login');
         }
-
     }
 
     // カテゴリー選択したアイテムリスト
@@ -74,6 +74,46 @@ class HomeController extends Controller
     }
 
     // 検索機能
+    public function searchresult(Request $request)
+    {
+        // 入力される値nameの中身を定義する
+        $keyword = $request->input('keyword'); //アイテム名の値
+        $placeName = $request->input('placeName'); //保管場所の値
+
+        $query = Item::query();
+        // アイテム名が入力された場合、itemテーブルから一致するアイテムを$queryに代入
+        if (isset($keyword)) {
+            $query->where('name', 'like', '%' . ($keyword) . '%');
+        }
+        // 保管場所が選択された場合、itemテーブルからplaceが一致すアイテムを$queryに代入
+        if (isset($placeName)) {
+            $query->where('place', '$placeName');
+        }
+        // $queryをitemテーブルのidの昇順に並び変えて$itemsに代入
+        // $items = $query->where->orderBy('id','asc')->paginate(15);
+
+        $items = $request->user()->items()->get();
+        $user = $request->user();
+        $tags = $user->tagsearch();
+        $categories = $user->categorysearch();
+
+        // itemテーブルからplacesearch();関数でidとplaceを取得
+        // $place = new Item;
+        $places = $request->user()->items()->placesearch();
+
+        return view('searchresult', compact('items', 'tags', 'categories', 'places', 'keyword', 'placeName'));
+    }
+
+
+
+    // だめだった
+    // public function itemeSarch(Request $request)
+    // {
+    //     $params = $request->query();
+    //     $searchitems = Items::search($params)->get();
+    //     return view('register/search',compact('params','searchitems'));
+    // }
+
 
     // Qiita
     // public function search(Request $request) {
@@ -96,17 +136,17 @@ class HomeController extends Controller
 
 
     // tetatail
-//     public function itemsearch(Request $request)
-//     {
-//         $keyword_name = $request->input('keyword');
-//         $keyword_category = $request->input('category');
-//         $keyword_tag = $request->input('tag');
-//         $keyword_place = $request->input('place');
-// if(isset($keyword_category)){
+    //     public function itemsearch(Request $request)
+    //     {
+    //         $keyword_name = $request->input('keyword');
+    //         $keyword_category = $request->input('category');
+    //         $keyword_tag = $request->input('tag');
+    //         $keyword_place = $request->input('place');
+    // if(isset($keyword_category)){
 
-// }
-//         return view('register/search',compact());
-//     }
+    // }
+    //         return view('register/search',compact());
+    //     }
 
 
 

@@ -60,6 +60,10 @@ Route::get('register/category', [App\Http\Controllers\CategoryController::class,
 Route::post('/category/create', [App\Http\Controllers\CategoryController::class, 'create']);
 Route::get('/list/{id}', [HomeController::class, 'show'])->name('list')->middleware('auth');
 Route::get('/shortagelist', [HomeController::class, 'shortageitem'])->name('shortagelist')->middleware('auth');
-Route::get('/search', [HomeController::class, 'itemsearch'])->name('search')->middleware('auth');
 
+// 検索結果
+// Route::get('/search', [HomeController::class, 'search'])->name('search')->middleware('auth');
+Route::get('/search',[HomeController::class,'searchresult'])->name('searchresult');
+
+// ログアウト
 Route::get('/logout',[LoginController::class,'logout'])->middleware('auth');

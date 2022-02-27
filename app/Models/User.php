@@ -85,6 +85,17 @@ class User extends Authenticatable
         return $tagsearch;
     }
 
+    // 保管場所取得
+    public function placesearch()
+    {
+        $placesearch = $this->select('items.id', 'items.place')
+            ->join('items', 'users.id', '=', 'items.user_id')
+            ->where('user.id', $this->id)
+            ->distinct()
+            ->get();
+        return $placesearch;
+    }
+
     // list画面のアイテム取得
     public function listitem($category_id)
     {
@@ -109,7 +120,34 @@ class User extends Authenticatable
         return $shortage;
     }
 
-        // 検索機能
+    // 検索機能
+
+    // だめだった
+    // /**
+    //  * 絞り込み・キーワード検索
+    //  * @param \Illuminate\Database\Eloquent\Builder
+    //  * @param array
+    //  * @return \Illuminate\Database\Eloquent\Builder
+    //  */
+    // public function itemsearch(Builder $query, array $params): Builder
+    // {
+    //     // 保管場所絞り込み
+    //     if (!empty($params['place'])) $query->where('place', $params['place']);
+
+    //     // キーワード検索
+    //     if (!empty($params['keyword'])) {
+    //         $query->where(function ($query) use ($params) {
+    //             $query->where('name', 'like', '%' . $params['keyword'] . '%');
+    //         });
+    //     }
+    //     return $query;
+    // }
+}
+
+
+
+
+
 
         // 独自
 // public function itemsearch()
@@ -130,20 +168,6 @@ class User extends Authenticatable
 
 
 
-    //    Qiita 
-/**
- * 絞り込み・キーワード検索
- * @param \Illuminate\Database\Eloquent\Builder
- * @param array
- * @return \Illuminate\Database\Eloquent\Builder
- */
-// public function scopeSearch(Builder $query,array $params): Builder
-// {
-//     // カテゴリー絞り込み
-//     if(!empty($params['category'])) $query->where('category',$params['category'])
-// }
-
-
 
         
         // public function itemsearch(Request $request)
@@ -157,4 +181,3 @@ class User extends Authenticatable
     
         //     return $itemsearch();
         // }    
-}
