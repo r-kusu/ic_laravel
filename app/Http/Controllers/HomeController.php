@@ -41,7 +41,7 @@ class HomeController extends Controller
 
             // $categories=Category::select('name')->get();
             // viewを返す(compactでviewに$items,$tags,$categoriesを渡す)
-            return view('register/index', compact('items', 'tags', 'categories'));
+            return view('register/index', compact('user','items', 'tags', 'categories'));
 
     }
 
@@ -54,7 +54,7 @@ class HomeController extends Controller
         $categories = $user->categorysearch();
         $listitem = $user->listitem($category_id);
 
-        return view('register/list', compact('items', 'tags', 'categories', 'listitem'));
+        return view('register/list', compact('user','items', 'tags', 'categories', 'listitem'));
     }
     // 買い物リスト
     public static function shortageitem(Request $request)

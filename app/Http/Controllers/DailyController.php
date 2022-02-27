@@ -16,14 +16,14 @@ class DailyController extends Controller
     //日用品登録画面の表示
     public function index(Request $request){
             //$items = $request->user()->items()->get();
-            //$user = $request->user();
+        $user = $request->user();
             //$tags = $user->tagsearch();
             //$categories = $user->categorysearch();
         $categories =  Category::get();
         $tags = Tags::all();
         $items = $request->user()->items()->get();
 
-        return view('register.daily',compact('categories', 'tags', 'items'));
+        return view('register.daily',compact('user','categories', 'tags', 'items'));
     }
 
     //日用品登録処理
