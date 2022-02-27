@@ -69,6 +69,7 @@ class DailyController extends Controller
 
         // アップロードした画像を取得
         $image_name = $request->file('image_name');
+
         // 画像名を取得
         $name = $image_name->getClientOriginalName();
         // アップロードした画像を一時保存フォルダ（tmp）へと保存する
@@ -77,13 +78,13 @@ class DailyController extends Controller
         $response['image_path'] = Storage::url('public/images/tmp/'. $name);
         // アップロードした画像のファイル名を取得
         // view側でファイル名をpostするようにしておく
-        $name = $request->get('image');
+        // $name = $request->get('image');
         // アップロードしたファイルを本番ディレクトリに公開
         if($name) {
-        // 本番ディレクトリに同名ファイルが存在する場合は削除
-        Storage::delete('public/images/'. $name);
-        // ファイルを移動
-        Storage::move('public/images/tmp/'. $name, 'public/images/'. $name);
+            // 本番ディレクトリに同名ファイルが存在する場合は削除
+            Storage::delete('public/images/'. $name);
+            // ファイルを移動
+            Storage::move('public/images/tmp/'. $name, 'public/images/'. $name);
 
 
         
@@ -123,7 +124,7 @@ class DailyController extends Controller
             ]);
         }
         
-        return view('register.daily',compact('names','categories'));
+        return $this->index($request);
     }
     }    
 //     return view('register.daily',compact('names','categories'));
