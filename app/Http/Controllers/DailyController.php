@@ -55,17 +55,6 @@ class DailyController extends Controller
         // exit;
 
         // dd($request);
-        $item = Item::create([
-            // TODO: ログインしている情報からユーザーID取得
-            'user_id' => $id, 
-            'name'=>$request->input('name'),
-            'image_name'=>$request->file('image_name'),
-            'category_id' =>1, // ダミー―データ
-            'stock'=>$request->input('stock'),
-            'threshold'=>$request->input('threshold'),
-            'category_id'=>$request->input('category_id'),
-            'place'=>$request->input('place')
-        ]);
 
         // アップロードした画像を取得
         $image_name = $request->file('image_name');
@@ -80,12 +69,28 @@ class DailyController extends Controller
         // view側でファイル名をpostするようにしておく
         // $name = $request->get('image');
         // アップロードしたファイルを本番ディレクトリに公開
+        $image_name = '';
         if($name) {
             // 本番ディレクトリに同名ファイルが存在する場合は削除
             Storage::delete('public/images/'. $name);
             // ファイルを移動
             Storage::move('public/images/tmp/'. $name, 'public/images/'. $name);
 
+            $image_name = Storage::url('public/images/'.$name);
+
+        }
+
+        $item = Item::create([
+            // TODO: ログインしている情報からユーザーID取得
+            'user_id' => $id, 
+            'name'=>$request->input('name'),
+            'image_name'=>$image_name,
+            'category_id' =>1, // ダミー―データ
+            'stock'=>$request->input('stock'),
+            'threshold'=>$request->input('threshold'),
+            'category_id'=>$request->input('category_id'),
+            'place'=>$request->input('place')
+        ]);
 
         
         // vvvv The tag functionality section is modified by K, Jan. 28 2022 vvvv
@@ -125,7 +130,7 @@ class DailyController extends Controller
         }
         
         return $this->index($request);
-    }
+        
     }    
 //     return view('register.daily',compact('names','categories'));
 
