@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\Tags;
 use App\Models\ItemTags;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\Facades\Image;
+
+
+
 
 class DailyController extends Controller
 {
@@ -59,12 +63,16 @@ class DailyController extends Controller
         // アップロードした画像を取得
         $image_name = $request->file('image_name');
 
+
         // 画像名を取得
         $name = $image_name->getClientOriginalName();
         // アップロードした画像を一時保存フォルダ（tmp）へと保存する
         $image_name->storeAs('public/images/tmp/', $name);
         //  viewで表示するためのURL
-        $response['image_path'] = Storage::url('public/images/tmp/'. $name);
+        $response['image_path'] = Storage::url('public/images/tmp/'. $name);        
+        //  画像を一律に縮小
+        $resized_image = Image::make($image_name)->fit(640, 360)->encode('jpg');
+        
         // アップロードした画像のファイル名を取得
         // view側でファイル名をpostするようにしておく
         // $name = $request->get('image');
@@ -77,9 +85,9 @@ class DailyController extends Controller
             Storage::move('public/images/tmp/'. $name, 'public/images/'. $name);
 
             $image_name = Storage::url('public/images/'.$name);
-
+            
         }
-
+    
         $item = Item::create([
             // TODO: ログインしている情報からユーザーID取得
             'user_id' => $id, 
