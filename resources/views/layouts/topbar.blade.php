@@ -41,8 +41,12 @@
             <!-- @foreach($items as $item)
             <option value="{{$item->id}}">{{$item->place}}</option>
             @endforeach -->
+            <?php $temp = []; ?>
             @foreach($items as $item)
-            <option value="{{$item->id}}">{{$item->place}}</option>
+              @if (!in_array($item->place,$temp))
+                <option value="{{$item->id}}">{{$item->place}}</option>
+                <?php array_push($temp, $item->place); ?>
+              @endif
             @endforeach
           </select>
           <button class="btn btn-danger" type="submit">検索</button>

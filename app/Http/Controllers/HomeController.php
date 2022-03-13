@@ -92,16 +92,17 @@ class HomeController extends Controller
         // $queryをitemテーブルのidの昇順に並び変えて$itemsに代入
         // $items = $query->where->orderBy('id','asc')->paginate(15);
 
-        $items = $request->user()->items()->get();
+        // $items = $request->user()->items()->get();
         $user = $request->user();
+        $items = $query->where('user_id',$user->id)->get();
         $tags = $user->tagsearch();
         $categories = $user->categorysearch();
 
         // itemテーブルからplacesearch();関数でidとplaceを取得
         // $place = new Item;
-        $places = $request->user()->items()->placesearch();
-
-        return view('searchresult', compact('items', 'tags', 'categories', 'places', 'keyword', 'placeName'));
+        // $places = $request->user()->items()->placesearch();
+        $places = DB::table('items')->select('place')->where('user_id', $user->id)->distinct()->get();
+        return view('register.search', compact('items', 'tags', 'categories', 'places', 'keyword', 'placeName'));
     }
 
 
