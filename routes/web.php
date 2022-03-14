@@ -66,4 +66,5 @@ Route::get('/logout',[LoginController::class,'logout'])->middleware('auth');
 
 // 会員情報編集画面
 Route::get('/personal-info/{id}', [App\Http\Controllers\PersonalController::class, "index"])->name('personal-info');
-Route::post('/personal-info/update/{id}', [App\Http\Controllers\PersonalController::class, "update"]);
+Route::post('/personal-info/update/{id}', [App\Http\Controllers\PersonalController::class, "update"])->name('personal-update');
+Route::get('/personal-info/delete/{id}', [App\Http\Controllers\PersonalController::class, "delete"])->name('personal-delete');

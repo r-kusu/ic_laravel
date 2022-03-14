@@ -18,18 +18,18 @@
     <th class="table-text">{{ $user->email }}</tr>
 </table>
     <!-- <th><button class="btn btn-primary" type="submit">編集</button></th> -->
-    <th><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">編集</button></th>
-    <th>※パスワード変更も可能です</th>
+    <th><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Modal" data-bs-whatever="@mdo">ユーザー名、メールアドレス編集</button></th>
+    <th><button type="button" class="btn btn-primary" data-bs-toggle="modal-1" data-bs-target="#Modal-1" data-bs-whatever="@mdo">パスワード編集</button></th>
 </tr>
 <!-- 削除ボタン -->
 <th>
     <form class="class-form-destroy" method="get" onSubmit="return window.confirm('本当に削除しますか？')"
-        action="/delete/{{ $user->id }}">
+        action="{{ route('personal-delete', ['id' => $user->id]); }}">
         <button class="btn btn-danger class-button-destroy" type="submit">アカウント削除</button>
     </form>
 </th>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <form action="/personal-info/update/{{ $user->id }}" method="post" enctype="multipart/form-data">
@@ -37,18 +37,58 @@
                 <div class="form-group">
 
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">編集</h5>
+                        <h5 class="modal-title" id="ModalLabel">ユーザー名、メールアドレスの編集</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label for="recipient-name" class="col-form-label">ユーザー名</label>
+                        <label for="name" class="col-form-label">ユーザー名</label>
                         <input type="text" class="form-control" name="name" id="recipient-name" value="{{ $user->name }}" maxlength="50" required autofocus>
+                        @if ($errors->has('name'))
+                          <span class="invalid-feedback" role="alert">
+                            {{ $errors->first('name') }}
+                          </span>
+                        @endif
                     </div>
                     <div class="mb-3">
-                        <label for="recipient-name" class="col-form-label">メールアドレス</label>
+                        <label for="email" class="col-form-label">メールアドレス</label>
                         <input type="email" class="form-control" name="email" id="recipient-name" value="{{ $user->email }}"  minlength="4" maxlength="128" required>
+                        @if ($errors->has('email'))
+                          <span class="invalid-feedback" role="alert">
+                            {{ $errors->first('email') }}
+                          </span>
+                        @endif
+                    </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="Modal-1" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="/personal-info/update/{{ $user->id }}" method="post" enctype="multipart/form-data">
+                @csrf
+                <div class="form-group">
+
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="ModalLabel">編集</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal-1" aria-label="Close"></button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="password" class="col-form-label">現在のパスワード</label>
+                        <input type="password" class="form-control" name="password" id="recipient-name" minlength="4" maxlength="128" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="col-form-label">新規パスワード</label><span class="badge badge-danger ml-2">{{ __('必須') }}</span></label>
+                        <input type="password" class="form-control" name="password" id="recipient-name"  minlength="4" maxlength="128" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="col-form-label">新規パスワード（確認用）</label>
+                        <input type="password" class="form-control" name="password" id="recipient-name"  minlength="4" maxlength="128" required>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -59,4 +99,5 @@
         </div>
     </div>
 </div>
+
 @endsection

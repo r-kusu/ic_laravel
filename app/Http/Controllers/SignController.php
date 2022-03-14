@@ -43,3 +43,5 @@ class SignController extends Controller
         return redirect('/login');
     }
 }
+
+
