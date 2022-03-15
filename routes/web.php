@@ -38,7 +38,7 @@ Route::post('/daily/create',[App\Http\Controllers\DailyController::class, 'creat
 Route::post('/daily/create',[App\Http\Controllers\DailyController::class, 'create'])->name('createdaily');
 Route::get('/food',function () {return view('register.food');})->middleware('auth');
 
-Route::get('/editdaily/{itemid}', [App\Http\Controllers\DailyController::class, 'edit'])->middleware('auth');
+Route::get('/editdaily/{itemid}', [App\Http\Controllers\DailyController::class, 'edit'])->name('editdaily')->middleware('auth');
 Route::put('/editdaily/{itemid}/update', [App\Http\Controllers\DailyController::class, 'update'])->name('edit')->middleware('auth');
 Route::delete('/editdaily/{itemid}',[App\Http\Controllers\DailyController::class, 'delete'])->name('delete.editdaily')->middleware('auth');
 

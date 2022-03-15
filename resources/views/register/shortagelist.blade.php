@@ -12,7 +12,11 @@
 <div class="item-card card m-2 d-inline-block">
     <div class="row g-0">
         <div class="col-md-4">
-            <img src="{{$shortageitem->image_name}}" alt="アイテム画像">
+            @if($shortageitem->image_name === null)
+            <img src="{{ asset('img/no_image_logo.png')}}"alt="アイテム画像" width="80px">
+            @else
+                <img src="{{$shortageitem->image_name}}" alt="アイテム画像" width="80px">
+            @endif
         </div>
         <div class="col-md-8">
             <div class="card-body">

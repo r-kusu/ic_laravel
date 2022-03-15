@@ -6,10 +6,14 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Item;
 use Validator;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Tags;
 use App\Models\ItemTags;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\Facades\Image;
+
+
+
 
 class DailyController extends Controller
 {
@@ -17,16 +21,25 @@ class DailyController extends Controller
     public function index(Request $request){
         if ( Auth::check() ){
             // ログイン済みの時の処理
-            //$items = $request->user()->items()->get();
+            $items = $request->user()->items()->get();
             //$user = $request->user();
             //$tags = $user->tagsearch();
             //$categories = $user->categorysearch();
-        }
-        $categories =  Category::get();
-        $tags = Tags::all();
-        $items = $request->user()->items()->get();
 
-        return view('register.daily',compact('categories', 'tags', 'items'));
+            //return view('register.daily', compact('items', 'tags', 'categories'));
+            $categories =  Category::get();
+            // modified by K at Jan. 28 2022
+            $tags = Tags::all();
+            return view('register.daily',compact('items', 'categories','tags'));
+        } else {
+            // ログインしていないときの処理
+            return redirect( 'login' ); // リダイレクトの方が良い！
+        }
+        //$categories =  Category::get();
+        //$tags = Tags::all();
+        //$items = $request->user()->items()->get();
+
+        //return view('register.daily',compact('categories', 'tags', 'items'));
     }
 
     //日用品登録処理
@@ -46,18 +59,47 @@ class DailyController extends Controller
         // exit;
 
         // dd($request);
+
+        // アップロードした画像を取得
+        $image_name = $request->file('image_name');
+
+
+        // 画像名を取得
+        $name = $image_name->getClientOriginalName();
+        // アップロードした画像を一時保存フォルダ（tmp）へと保存する
+        $image_name->storeAs('public/images/tmp/', $name);
+        //  viewで表示するためのURL
+        $response['image_path'] = Storage::url('public/images/tmp/'. $name);        
+        //  画像を一律に縮小
+        $resized_image = Image::make($image_name)->fit(640, 360)->encode('jpg');
+        
+        // アップロードした画像のファイル名を取得
+        // view側でファイル名をpostするようにしておく
+        // $name = $request->get('image');
+        // アップロードしたファイルを本番ディレクトリに公開
+        $image_name = '';
+        if($name) {
+            // 本番ディレクトリに同名ファイルが存在する場合は削除
+            Storage::delete('public/images/'. $name);
+            // ファイルを移動
+            Storage::move('public/images/tmp/'. $name, 'public/images/'. $name);
+
+            $image_name = Storage::url('public/images/'.$name);
+            
+        }
+    
         $item = Item::create([
             // TODO: ログインしている情報からユーザーID取得
             'user_id' => $id, 
             'name'=>$request->input('name'),
-            'image_name'=>"ダミー",
+            'image_name'=>$image_name,
             'category_id' =>1, // ダミー―データ
-            // 'image_name'=>$request->file('image_name'),
             'stock'=>$request->input('stock'),
             'threshold'=>$request->input('threshold'),
             'category_id'=>$request->input('category_id'),
             'place'=>$request->input('place')
         ]);
+
         
         // vvvv The tag functionality section is modified by K, Jan. 28 2022 vvvv
         // requestのtag_nameには"#タグ1 #タグ2 #タグ3"とスペース区切り，かつ１つのタグに#記号が付与されている前提
@@ -95,8 +137,9 @@ class DailyController extends Controller
             ]);
         }
         
-        return view('register.daily',compact('names','categories'));
-    }
+        return $this->index($request);
+        
+    }    
 //     return view('register.daily',compact('names','categories'));
 
     
@@ -109,7 +152,7 @@ class DailyController extends Controller
     */
     public function edit($item_id,Request $request)
     {
-       
+
         if ( Auth::check() ){
             // ログイン済みの時の処理
             /*
@@ -123,6 +166,7 @@ class DailyController extends Controller
 
             return view('edit.editdaily', compact('item', 'item_id','category','items', 'tags', 'categories'));
             */
+            $items = $request->user()->items()->get();
             $item = Item::find($item_id);
             // $category = Category::where('item_id',$item_id)->first();
             // カテゴリの検索
@@ -138,7 +182,7 @@ class DailyController extends Controller
             //     if(!in_array($category->name,$names)){
             //         $names[] = $category->name;
             //     }
-            return view('edit.editdaily', compact('item', 'selected_category', 'categories', 'selected_tags', 'tags'));
+            return view('edit.editdaily', compact('item', 'selected_category', 'categories', 'selected_tags', 'tags', 'items'));
         } else {
             // ログインしていないときの処理
             return redirect( 'login' );

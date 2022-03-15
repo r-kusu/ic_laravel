@@ -14,7 +14,7 @@
 <tr class = "image_name">  
 <th>商品画像</th>
     <td>
-        <p><input class="form-control" type ="file" name="s_file" name="image_name"></p>
+        <p><input class="form-control" type ="file"  name="image_name"></p>
     </td>    
 </tr>
 
