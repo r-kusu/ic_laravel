@@ -18,7 +18,7 @@
             <div class="card-body">
                 <h5 class="item-name card-title">{{$item->name}}</h5>
                 <div class="card-text">残り{{$item->stock}}個</div>
-                <a class="btn btn-danger" href="{{ url('/editdaily/{item_id}') }}" role="button">変更</a>
+                <a class="btn btn-danger" href="{{ url('/editdaily/'.$item->id) }}" role="button">変更</a>
             </div>
         </div>
     </div>
