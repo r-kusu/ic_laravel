@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title','買い物リスト')
+@section('title',$title)
 
 @include('layouts.head')
 
@@ -8,7 +8,7 @@
 
 @section('content')
 
-@foreach($shortageitems as $shortageitem)
+@foreach($s_result as $shortageitem)
 <div class="item-card card m-2 d-inline-block">
     <div class="row g-0">
         <div class="col-md-4">
@@ -22,7 +22,7 @@
             <div class="card-body">
                 <h5 class="item-name card-title">{{$shortageitem->name}}</h5>
                 <div class="card-text">残り{{$shortageitem->stock}}個</div>
-                <a class="btn btn-danger" href="{{ url('/editdaily/'.$item->id) }}" role="button">変更</a>
+                <a class="btn btn-danger" href="{{ url('/editdaily/'.$shortageitem->id) }}" role="button">変更</a>
             </div>
         </div>
     </div>

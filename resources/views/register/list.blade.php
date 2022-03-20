@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title','カテゴリーアイテム一覧')
+@section('title',$title)
 
 @include('layouts.head')
 
@@ -8,7 +8,7 @@
 
 @section('content')
 
-@foreach($listitem as $item)
+@foreach($s_result as $item)
 <div class="item-card card m-2 d-inline-block">
     <div class="row g-0">
         <div class="col-md-4">

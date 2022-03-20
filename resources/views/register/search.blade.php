@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title','検索結果')
+@section('title',$title)
 
 @include('layouts.head')
 
@@ -8,11 +8,15 @@
 
 @section('content')
 
-@foreach($items as $item)
+@foreach($s_result as $item)
 <div class="item-card card m-2 d-inline-block">
     <div class="row g-0">
         <div class="col-md-4">
-            <img src="{{$item->image_name}}" alt="アイテム画像">
+            @if($item->img_name === null)
+                <img src="{{ asset('img/no_image_logo.png')}}" alt="アイテム画像" width="80px">
+            @else
+                <img src="{{$item->image_name}}" alt="アイテム画像" width="80px">
+            @endif
         </div>
         <div class="col-md-8">
             <div class="card-body">

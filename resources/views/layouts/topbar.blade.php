@@ -24,7 +24,6 @@
             <!-- @foreach($categories as $key => $value)
             <option value="{{$category->id}}" {{isset($params['category']) && $params['category'] == $value ? 'selected':null}}>{{$value->name}}</option>
             @endforeach -->
-
           </select>
 
           <label for="" class="select-label pb-2 pt-3">タグ</label>
@@ -38,13 +37,10 @@
           <label for="" class="select-label pb-2 pt-3">保管場所</label>
           <select class="form-select" aria-label="Default select example" name="place" value="">
             <option value="">未選択</option>
-            <!-- @foreach($items as $item)
-            <option value="{{$item->id}}">{{$item->place}}</option>
-            @endforeach -->
             <?php $temp = []; ?>
             @foreach($items as $item)
               @if (!in_array($item->place,$temp))
-                <option value="{{$item->id}}">{{$item->place}}</option>
+                <option value="{{$item->place}}">{{$item->place}}</option>
                 <?php array_push($temp, $item->place); ?>
               @endif
             @endforeach
