@@ -29,7 +29,7 @@ class SignController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|max:50', 
-            'email' => 'required|max:254',
+            'email' => 'required|max:254|unique:users,email',
             'password' => 'required|min:6|max:32',
         ]);
 

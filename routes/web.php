@@ -65,6 +65,8 @@ Route::get('/search', [HomeController::class, 'itemsearch'])->name('search')->mi
 Route::get('/logout',[LoginController::class,'logout'])->middleware('auth');
 
 // 会員情報編集画面
-Route::get('/personal-info/{id}', [App\Http\Controllers\PersonalController::class, "index"])->name('personal-info');
 Route::post('/personal-info/update/{id}', [App\Http\Controllers\PersonalController::class, "update"])->name('personal-update');
+Route::post('/personal-info/update-pass/{id}', [App\Http\Controllers\PersonalController::class, "updatepass"])->name('personal-update-pass');
+
 Route::get('/personal-info/delete/{id}', [App\Http\Controllers\PersonalController::class, "delete"])->name('personal-delete');
+Route::get('/personal-info/{id}', [App\Http\Controllers\PersonalController::class, "index"])->name('personal-info');

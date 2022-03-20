@@ -33,7 +33,7 @@
 <div class="modal fade" id="Modal1" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="/personal-info/update/{{ $user->id }}" method="post" enctype="multipart/form-data">
+            <form action="{{ asset('/personal-info/update/') . '/' . $user->id }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
 
@@ -45,11 +45,11 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="name" class="col-form-label">ユーザー名</label>
-                        <input type="text" class="form-control" name="name" id="recipient-name" value="{{ $user->name }}" maxlength="50" required autofocus>
+                        <input type="text" class="form-control" name="name" id="name" value="{{ $user->name }}" maxlength="50" required autofocus>
                     </div>
                     <div class="mb-3">
                         <label for="email" class="col-form-label">メールアドレス</label>
-                        <input type="email" class="form-control" name="email" id="recipient-name" value="{{ $user->email }}"  minlength="4" maxlength="128" required>
+                        <input type="email" class="form-control" name="email" id="email" value="{{ $user->email }}"  minlength="4" maxlength="128" required>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -69,7 +69,7 @@
                 <div class="form-group">
 
                     <div class="modal-header">
-                        <h5 class="modal-title" id="ModalLabel">パスワード編集</h5>
+                        <h5 class="modal-title" id="ModalLabel1">パスワード編集</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal-1" aria-label="Close"></button>
                     </div>
                 </div>

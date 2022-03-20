@@ -11,6 +11,7 @@ class PersonalController extends Controller
 {
     public function index(Request $request) 
     {
+        error_log("index");
         $items = $request->user()->items()->get();
         $user = $request->user();
         $tags = $user->tagsearch();
@@ -21,17 +22,23 @@ class PersonalController extends Controller
         ));
     }
 
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        $users = user::find($request->id);
+        $request -> validate([
+            'name' => 'required|max:50',
+            'email'=>['unique:users,email'],
+        ]);
+
+        $users = user::find($id);
         $users->name = $request->name;
+        error_log("update name:" . $request->name);
         $users->email = $request->email;
-        $users->password = Hash::make($request->password);
+        // $users->password = Hash::make($request->password);
         $users->save();
 
         // modified by K 2022.3.5
         // return redirect('/personal-info', ['id'=>$request->id]);
-        return redirect( route('personal-info', ['id'=>$request->id]) );
+        return redirect( route('personal-info', ['id'=>$id]) );
     }
 
     // modified by K 2022.3.5
@@ -41,4 +48,20 @@ class PersonalController extends Controller
         // ログイン画面にリダイレクトする必要がある
         return redirect( asset('/logout') );
     }
+
+    public function updatepass(Request $request)
+    {
+        $request -> validate([
+            'password'=>['unique:users,password'],
+        ]);
+
+        $users = user::find($request->id);
+        $users->password = Hash::make($request->password);
+        $users->save();
+
+        // modified by K 2022.3.5
+        // return redirect('/personal-info', ['id'=>$request->id]);
+        return redirect( route('personal-info', ['id'=>$request->id]) );
+    }
+
 }
