@@ -56,7 +56,7 @@
 
     <!-- 閲覧中のカテゴリー名 -->
     <!-- <div class="navbar-brand">{{$category->name}}</div> -->
-    <div class="navbar-brand fs-4">日用品管理</div>
+    <div class="navbar-brand fs-4">{{ $title }}</div>
 
     <!-- 新規登録 -->
     <a href="{{ url('/daily') }}" class="create-icon btn btn-info" role="button"><i class="bi bi-pencil-square"></i></a>

@@ -30,7 +30,8 @@ class DailyController extends Controller
             $categories =  Category::get();
             // modified by K at Jan. 28 2022
             $tags = Tags::all();
-            return view('register.daily',compact('items', 'categories','tags'));
+            $title = '登録';
+            return view('register.daily',compact('items', 'categories','tags','title'));
         } else {
             // ログインしていないときの処理
             return redirect( 'login' ); // リダイレクトの方が良い！
