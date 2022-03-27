@@ -21,9 +21,6 @@
             @foreach($categories as $category)
             <option value="{{$category->id}}">{{$category->name}}</option>
             @endforeach
-            <!-- @foreach($categories as $key => $value)
-            <option value="{{$category->id}}" {{isset($params['category']) && $params['category'] == $value ? 'selected':null}}>{{$value->name}}</option>
-            @endforeach -->
           </select>
 
           <label for="" class="select-label pb-2 pt-3">タグ</label>
@@ -56,7 +53,7 @@
 
     <!-- 閲覧中のカテゴリー名 -->
     <!-- <div class="navbar-brand">{{$category->name}}</div> -->
-    <div class="navbar-brand fs-4">日用品管理</div>
+    <div class="navbar-brand fs-4">{{ $title }}</div>
 
     <!-- 新規登録 -->
     <a href="{{ url('/daily') }}" class="create-icon btn btn-info" role="button"><i class="bi bi-pencil-square"></i></a>

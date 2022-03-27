@@ -30,7 +30,8 @@ class DailyController extends Controller
             $categories =  Category::get();
             // modified by K at Jan. 28 2022
             $tags = Tags::all();
-            return view('register.daily',compact('items', 'categories','tags'));
+            $title = '登録';
+            return view('register.daily',compact('items', 'categories','tags','title'));
         } else {
             // ログインしていないときの処理
             return redirect( 'login' ); // リダイレクトの方が良い！
@@ -177,12 +178,13 @@ class DailyController extends Controller
             //タグの検索 
             $selected_tags = Item::find($item_id)->tags()->orderBy('tag_name')->get();
             $tags = Tags::all();
+            $title = '編集';
     
             // foreach($categories as $category){
             //     if(!in_array($category->name,$names)){
             //         $names[] = $category->name;
             //     }
-            return view('edit.editdaily', compact('item', 'selected_category', 'categories', 'selected_tags', 'tags', 'items'));
+            return view('edit.editdaily', compact('item', 'selected_category', 'categories', 'selected_tags', 'tags', 'items','title'));
         } else {
             // ログインしていないときの処理
             return redirect( 'login' );

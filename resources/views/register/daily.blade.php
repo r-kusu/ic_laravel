@@ -1,6 +1,6 @@
 @extends("layouts.app")
 
-@section('title', '日用品登録')
+@section('title', $title)
 
 @include("layouts.topbar", ['tags' => $tags, 'items' => $items])
 

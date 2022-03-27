@@ -39,12 +39,13 @@ class HomeController extends Controller
         $user = $request->user();
         $categories = $user->categorysearch();
         $tags = $user->tagsearch();
+        $title = 'HOME';
 
         if (Auth::check()) {
             // ログイン済みの時の処理
             // $categories=Category::select('name')->get();
             // viewを返す(compactでviewに$items,$tags,$categoriesを渡す)
-            return view('register/index', compact('items', 'categories', 'tags'));
+            return view('register/index', compact('items', 'categories', 'tags','title'));
         } else {
             // ログインしていないときの処理
             return redirect('login');
@@ -61,7 +62,14 @@ class HomeController extends Controller
         // $listitem = $user->listitem($category_id);
         $title = 'カテゴリーアイテム一覧';
         $s_result = $user->listitem($category_id);
-        return view('register.search', compact('items', 'tags', 'categories', 's_result','title'));
+        // $c_message = 'カテゴリー：'.select('categories.*')->where('id',$category_id)->value('name'); //Call to undefined function App\Http\Controllers\select()
+        $c_message = 'カテゴリー：'.$category_id; //カテゴリーのidのみ出る
+        // $c_message = 'カテゴリー：'.$s_result; //itemの情報がとられる
+        // $c_message = 'カテゴリー：'.$categories; //エラーにはならない、name以外のとにかくすべての情報が出る
+        // $c_message = 'カテゴリー：'.'id'->$categories->name; //Attempt to read property "[{"id":1,"name":"\u98df\u6599\u54c1","created_at":"2022-01-23T08:25:54....etc
+        // $c_message = 'カテゴリー：'.$categories->name; //Property [name] does not exist on this collection instance.
+        // dd($c_message);
+        return view('register.search', compact('items', 'tags', 'categories', 's_result','title','c_message'));
     }
 
     // 買い物リスト
@@ -93,19 +101,32 @@ class HomeController extends Controller
         // アイテム名が入力された場合、itemテーブルから一致するアイテムを$queryに代入
         if (isset($keyword)) {
             $query->where('name', 'like', '%' . ($keyword) . '%');
+            $w_message = 'キーワード：'. $keyword;
+        }else {
+            $w_message = 'キーワード：指定なし';
         }
         // カテゴリー
         if (isset($category)) {
             $query->where('category_id',$category);
+            $c_message = 'カテゴリー：'.'{{$category->name}}';
+        }else {
+            $c_message = 'カテゴリー：指定なし';
         }
+        // dd($c_message);
         // タグ
         if (isset($tagName)) {
             $query->join('item_tags','items.id','item_tags.item_id')
             ->where('item_tags.tag_id',$tagName);
+            $t_message = 'タグ：'.$tagName;
+        }else {
+            $t_message = 'タグ：指定なし';
         }
         // 保管場所が選択された場合、itemテーブルからplaceが一致すアイテムを$queryに代入
         if (isset($placeName)) {
             $query->where('place', $placeName);
+            $p_message = '保管場所：'.$placeName;
+        }else {
+            $p_message = '保管場所：指定なし';
         }
         // $queryをitemテーブルのidの昇順に並び変えて$itemsに代入
         // $items = $query->where->orderBy('id','asc')->paginate(15);
@@ -124,6 +145,7 @@ class HomeController extends Controller
         // $places = $request->user()->items()->placesearch();
         $places = DB::table('items')->select('place')->where('user_id', $user->id)->distinct()->get();
         $title = '検索結果';
-        return view('register.search', compact('items', 'tags', 'categories', 'places', 'keyword', 'placeName','s_result','title'));
+
+        return view('register.search', compact('items', 'tags', 'categories', 'places', 'keyword', 'placeName','s_result','title','w_message','c_message','t_message','p_message'));
     }
 }

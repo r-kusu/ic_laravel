@@ -7,15 +7,29 @@
 @include('layouts.topbar')
 
 @section('content')
+<div  class="message">
+    @if(!empty($w_message))
+    <div>{{$w_message}}</div>
+    @endif
+    @if(!empty($c_message))
+    <div>{{$c_message}}</div>
+    @endif
+    @if(!empty($t_message))
+    <div>{{$t_message}}</div>
+    @endif
+    @if(!empty($p_message))
+    <div>{{$p_message}}</div>
+    @endif
+</div>
 
 @foreach($s_result as $item)
 <div class="item-card card m-2 d-inline-block">
     <div class="row g-0">
         <div class="col-md-4">
             @if($item->img_name === null)
-                <img src="{{ asset('img/no_image_logo.png')}}" alt="アイテム画像" width="80px">
+            <img src="{{ asset('img/no_image_logo.png')}}" alt="アイテム画像" width="80px">
             @else
-                <img src="{{$item->image_name}}" alt="アイテム画像" width="80px">
+            <img src="{{$item->image_name}}" alt="アイテム画像" width="80px">
             @endif
         </div>
         <div class="col-md-8">
@@ -29,4 +43,7 @@
 </div>
 @endforeach
 
+@if(empty($s_result))
+<div>該当のアイテムはありません</div>
+@endif
 @endsection
