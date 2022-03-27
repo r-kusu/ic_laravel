@@ -10,6 +10,10 @@
 
 <h2>会員情報</h2>
 <br>
+@foreach ($errors->all() as $error)
+    <p style="color: red;">{{ $error }}</p>
+@endforeach
+
 <table class="table table-striped">
     <tr class = "image_name">  
         <th>ユーザー名：</th>
@@ -38,7 +42,7 @@
                 <div class="form-group">
 
                     <div class="modal-header">
-                        <h5 class="modal-title" id="ModalLabel">ユーザー名、メールアドレスの編集</h5>
+                        <h5 class="modal-title" id="ModalLabel4">編集</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                 </div>
