@@ -69,8 +69,8 @@ class PersonalController extends Controller
             // 現在のパスワードと一致しているかのバリデーション
             'new_password'=> [
                 'required',
-                'min:4',
-                'max:128',
+                'min:6',
+                'max:32',
             ],
             'password-confirm'=> [
                 'required',
