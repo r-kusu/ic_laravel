@@ -92,6 +92,7 @@ class PersonalController extends Controller
         // ログイン画面にリダイレクトする必要がある
         $user = user::find($request->id);
         $user -> delete();
+        // ここにアイテムの削除（2022/4/4）
         return redirect( asset('/logout') );
     }
 
