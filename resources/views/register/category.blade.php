@@ -1,26 +1,21 @@
 @extends("layouts.app")
 
-@section('title','ジャンル登録')
+@section('title','$title')
 
-@include("layouts.topbar")
+@include("layouts.topbar",['categories' => $categories])
 
 
 @section("content")
+@foreach($categories as $category)
 <form action="/category/create" method="post" enctype="multipart/form-data">
+@endforeach
 @csrf
 <div class="container">
-    <div class="row bg-secondary">
-        <div class="col-lg-2 text-start">ジャンル登録画面</div>
-        <div class="col-lg-10">
-        <input class="form-control" type="text" maxlength="50" name="name">
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm"><button class="btn btn-primary" type="submit">保存</button></div>
-    </div>
+<th scope="row">カテゴリー名</th>
+    <td><input class="form-control" type="text" maxlength="50" name="name"></td>
+<th><button class="btn btn-primary" type="submit">保存</button></th>
 </div>
 </form>
 
 
 @endsection
-

@@ -139,10 +139,10 @@ class DailyController extends Controller
             ]);
         }
         
-        return $this->index($request);
+        return $this->index($request, compact('item', 'selected_category', 'categories', 'selected_tags', 'tags', 'items','title'));
         
     }    
-//     return view('register.daily',compact('names','categories'));
+    
 
     
     //編集処理
