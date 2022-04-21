@@ -13,10 +13,10 @@
     <div class="row g-0">
         <div class="col-md-4">
             @if($item->image_name === null)
-            <img src="{{ asset('img/no_image_logo.png')}}"alt="アイテム画像" width="80px">
+                <img src="{{ asset('img/no_image_logo.png')}}"alt="アイテム画像" width="80px">
             
             @else
-                <img src="{{$item->image_name}}" alt="アイテム画像" width="80px">
+                <img src="{{ asset('$item->image_name')}}" alt="アイテム画像" width="80px">
             @endif
         </div>
         <div class="col-md-8">

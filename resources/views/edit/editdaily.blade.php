@@ -14,7 +14,13 @@
 <tr class = "image_name">  
 <th>商品画像</th>
     <td>
-        <p><input type="file" name="s_file" name="image_name" ></p>
+    @if($item->image_name === null)
+                    <img src="{{ asset('img/no_image_logo.png')}}" alt="アイテム画像" width="80px">
+                @else
+                    <img src="{{$item->image_name}}" alt="アイテム画像" width="80px">
+                    
+                @endif
+        <p><input type="file" name="s_file" name="image_name" value="{{ $item->image_name }}"></p>
     </td>    
 </tr>
 
