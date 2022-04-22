@@ -198,34 +198,17 @@ class DailyController extends Controller
         $item->place = $request->input('place');
         $item->category_id = $request->input('category_id');
 
-        //以下　追加実装　4月２０日
+        
         // 現在認証しているユーザーのIDを取得
         $id = Auth::id();
 
         // アップロードした画像を取得
         $image_name = $request->file('image_name');
 
-        // 画像名を取得
+        // // 画像名を取得
         $name = $image_name;
 
-        if($name) {
-        // 現在の画像へのパスをセット
-        $path = $item->image;
-        if (isset($image)) {
-            // 現在の画像ファイルの削除
-            \Storage::disk('public')->delete($path);
-            // 選択された画像ファイルを保存してパスをセット
-        }
-    }
-        if($name) {
-            // アップロードした画像をstorage/public/imagesへと保存する
-            $tempfile = $image_name->storeAs('public/images', $name);
-            //  viewで表示するためのURL
-            $response['image_path'] = Storage::url('images/'. $name);        
-            //  画像を一律に縮小
-            $resized_image = Image::make($image_name)->fit(640, 360)->encode('jpg');
-            $image_name = Storage::url('images/'.$name);
-        }
+        
 
         $item->save();
 

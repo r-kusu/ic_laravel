@@ -17,8 +17,9 @@
     @if($item->image_name === null)
                     <img src="{{ asset('img/no_image_logo.png')}}" alt="アイテム画像" width="80px">
                 @else
-                    <img src="{{$item->image_name}}" alt="アイテム画像" width="80px">
-                    
+                
+                    <img src="{{ asset($item->image_name)}}" alt="アイテム画像" width="80px">
+                    {{ $item->image_name }}<br>
                 @endif
         <p><input type="file" name="s_file" name="image_name" value="{{ $item->image_name }}"></p>
     </td>    
