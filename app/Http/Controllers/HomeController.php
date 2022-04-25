@@ -108,7 +108,7 @@ class HomeController extends Controller
         // カテゴリー
         if (isset($category)) {
             $query->where('category_id',$category);
-            $c_message = 'カテゴリー：'.'{{$category->name}}';
+            $c_message = 'カテゴリー：'.$category;
         }else {
             $c_message = 'カテゴリー：指定なし';
         }

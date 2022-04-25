@@ -43,7 +43,7 @@
 </div>
 @endforeach
 
-@if(empty($s_result))
+@if($s_result->isEmpty())
 <div>該当のアイテムはありません</div>
 @endif
 @endsection
