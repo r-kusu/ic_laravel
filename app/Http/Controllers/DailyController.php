@@ -11,9 +11,7 @@ use App\Models\Tags;
 use App\Models\ItemTags;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
-
-
-
+use Illuminate\Support\Facades\File;
 
 class DailyController extends Controller
 {
@@ -31,118 +29,104 @@ class DailyController extends Controller
             // modified by K at Jan. 28 2022
             $tags = Tags::all();
             $title = '登録';
+            
             return view('register.daily',compact('items', 'categories','tags','title'));
         } else {
             // ログインしていないときの処理
             return redirect( 'login' ); // リダイレクトの方が良い！
         }
-        //$categories =  Category::get();
-        //$tags = Tags::all();
-        //$items = $request->user()->items()->get();
-
-        //return view('register.daily',compact('categories', 'tags', 'items'));
     }
 
     //日用品登録処理
     public function create(Request $request)
     {
-        //入力値のチェック
-        $request->validate([
-            'name'=>['required'],
-            'stock'=>['required','integer','min:0'],
-            'threshold'=>['required','integer','min:0'], 
-            'place'=>['required'],   
-        ]);
+        if ( Auth::check() ){
+            //入力値のチェック
+            $request->validate([
+                'name'=>['required'],
+                'stock'=>['required','integer','min:0'],
+                'threshold'=>['required','integer','min:0'], 
+                'place'=>['required'],   
+            ]);
 
-        // 現在認証しているユーザーのIDを取得
-        $id = Auth::id();
-        // var_dump($id);
-        // exit;
+            // 現在認証しているユーザーのIDを取得
+            $id = Auth::id();
 
-        // dd($request);
+            // アップロードした画像を取得
+            $image_name = $request->file('image_name');
 
-        // アップロードした画像を取得
-        $image_name = $request->file('image_name');
-
-
-        // 画像名を取得
-        $name = $image_name->getClientOriginalName();
-        // アップロードした画像を一時保存フォルダ（tmp）へと保存する
-        $image_name->storeAs('public/images/tmp/', $name);
-        //  viewで表示するためのURL
-        $response['image_path'] = Storage::url('public/images/tmp/'. $name);        
-        //  画像を一律に縮小
-        $resized_image = Image::make($image_name)->fit(640, 360)->encode('jpg');
-        
-        // アップロードした画像のファイル名を取得
-        // view側でファイル名をpostするようにしておく
-        // $name = $request->get('image');
-        // アップロードしたファイルを本番ディレクトリに公開
-        $image_name = '';
-        if($name) {
-            // 本番ディレクトリに同名ファイルが存在する場合は削除
-            Storage::delete('public/images/'. $name);
-            // ファイルを移動
-            Storage::move('public/images/tmp/'. $name, 'public/images/'. $name);
-
-            $image_name = Storage::url('public/images/'.$name);
+            // 画像名を取得
+            $name = $image_name->getClientOriginalName();
             
-        }
-    
-        $item = Item::create([
-            // TODO: ログインしている情報からユーザーID取得
-            'user_id' => $id, 
-            'name'=>$request->input('name'),
-            'image_name'=>$image_name,
-            'category_id' =>1, // ダミー―データ
-            'stock'=>$request->input('stock'),
-            'threshold'=>$request->input('threshold'),
-            'category_id'=>$request->input('category_id'),
-            'place'=>$request->input('place')
-        ]);
-
-        
-        // vvvv The tag functionality section is modified by K, Jan. 28 2022 vvvv
-        // requestのtag_nameには"#タグ1 #タグ2 #タグ3"とスペース区切り，かつ１つのタグに#記号が付与されている前提
-        $tag_array = [];        // 既にあるタグの配列
-        $new_tag_array = [];    // 新しいタグの配列
-        error_log("DailyController:create() original tag:" . $request->input('tag_name'));
-        foreach (explode(" ", $request->input('tag_name')) as $tag) {
-            // #記号を落とす
-            $tag = substr($tag, 1);
-            // 既にあるタグか，新しいタグを判別する
-            $tag_record = Tags::where("tag_name", $tag)->first();
-            if ( $tag_record ) {    // 検索して1件でもあったら，既にあるタグとして扱う
-                error_log("DailyController:create() alread have the tag:" . $tag);
-                array_push($tag_array, $tag_record);
-            } else {    // 検索してなかった場合，Tagsテーブルにレコード追加する必要あり
-                error_log("DailyController:create() the tag is new!:" . $tag);
-                array_push($new_tag_array, $tag);
+            // アップロードした画像のファイル名を取得
+            // view側でファイル名をpostするようにしておく
+            // $name = $request->get('image');
+            // アップロードしたファイルを本番ディレクトリに公開
+            //$image_name = '';
+            if($name) {
+                // アップロードした画像をstorage/public/imagesへと保存する
+                $tempfile = $image_name->storeAs('public/images', $name);
+                //  viewで表示するためのURL
+                $response['image_path'] = Storage::url('images/'. $name);        
+                //  画像を一律に縮小
+                $resized_image = Image::make($image_name)->fit(640, 360)->encode('jpg');
+                $image_name = Storage::url('images/'.$name);
             }
-        }
         
-        // 新しいタグの作成
-        foreach($new_tag_array as $newtag) {
-            $newtagrecord = Tags::create([
-                "tag_name" => $newtag,
+            $item = Item::create([
+                // TODO: ログインしている情報からユーザーID取得
+                'user_id' => $id, 
+                'name'=>$request->input('name'),
+                'image_name'=>$image_name,
+                'category_id' =>1, // ダミー―データ
+                'stock'=>$request->input('stock'),
+                'threshold'=>$request->input('threshold'),
+                'category_id'=>$request->input('category_id'),
+                'place'=>$request->input('place')
             ]);
-            // 既にあるタグレコード配列に追加
-            array_push($tag_array, $newtagrecord);
-        }
-        
-        // 既にあるタグ+新しいタグの中間テーブルのレコード追加
-        foreach($tag_array as $existedtag) {
-            ItemTags::create([
-                "item_id" => $item->id,
-                "tag_id" => $existedtag->id,
-            ]);
-        }
-        
-        return $this->index($request);
-        
-    }    
-//     return view('register.daily',compact('names','categories'));
 
+            // vvvv The tag functionality section is modified by K, Jan. 28 2022 vvvv
+            // requestのtag_nameには"#タグ1 #タグ2 #タグ3"とスペース区切り，かつ１つのタグに#記号が付与されている前提
+            $tag_array = [];        // 既にあるタグの配列
+            $new_tag_array = [];    // 新しいタグの配列
+            error_log("DailyController:create() original tag:" . $request->input('tag_name'));
+            foreach (explode(" ", $request->input('tag_name')) as $tag) {
+                // #記号を落とす
+                $tag = substr($tag, 1);
+                // 既にあるタグか，新しいタグを判別する
+                $tag_record = Tags::where("tag_name", $tag)->first();
+                if ( $tag_record ) {    // 検索して1件でもあったら，既にあるタグとして扱う
+                    error_log("DailyController:create() alread have the tag:" . $tag);
+                    array_push($tag_array, $tag_record);
+                } else {    // 検索してなかった場合，Tagsテーブルにレコード追加する必要あり
+                    error_log("DailyController:create() the tag is new!:" . $tag);
+                    array_push($new_tag_array, $tag);
+                }
+            }
+            
+            // 新しいタグの作成
+            foreach($new_tag_array as $newtag) {
+                $newtagrecord = Tags::create([
+                    "tag_name" => $newtag,
+                ]);
+                // 既にあるタグレコード配列に追加
+                array_push($tag_array, $newtagrecord);
+            }
+            
+            // 既にあるタグ+新しいタグの中間テーブルのレコード追加
+            foreach($tag_array as $existedtag) {
+                ItemTags::create([
+                    "item_id" => $item->id,
+                    "tag_id" => $existedtag->id,
+                ]);
+            }
+            
+            return $this->index($request);
+        } else {
+            // ログインしていないときの処理
+            return redirect( 'login' );
+        }
+    }    
     
     //編集処理
     /**
@@ -151,30 +135,28 @@ class DailyController extends Controller
     * @param  int  $item_id
     * @return \Illuminate\Http\Response
     */
-    public function edit($item_id,Request $request)
+    public function edit($item_id, Request $request)
     {
 
         if ( Auth::check() ){
             // ログイン済みの時の処理
-            /*
-            $item = Item::find($item_id);
-            $category = Category::where('item_id',$item_id)->first();
-
-            $items = $request->user()->items()->get();
-            $user = $request->user();
-            $tags = $user->tagsearch();
-            $categories = $user->categorysearch();
-
-            return view('edit.editdaily', compact('item', 'item_id','category','items', 'tags', 'categories'));
-            */
             $items = $request->user()->items()->get();
             $item = Item::find($item_id);
+            error_log("DailyCtrl::edit item_id:" . $item_id);
+            error_log("DailyCtrl::edit item:" . $item);
             // $category = Category::where('item_id',$item_id)->first();
             // カテゴリの検索
             $selected_category =  Category::find($item->category_id);
             // $selected_category =  Category::where('id', $item->category_id)->first();
             $categories = Category::all();
-            
+            $title='編集';
+
+             // アップロードした画像を取得
+            //$image_name = $request->file('image_name');
+
+             // 画像名を取得
+            //$file = $image_name->getClientOriginalName();
+
             //タグの検索 
             $selected_tags = Item::find($item_id)->tags()->orderBy('tag_name')->get();
             $tags = Tags::all();
@@ -189,7 +171,6 @@ class DailyController extends Controller
             // ログインしていないときの処理
             return redirect( 'login' );
         }        
-
     }
 
     /**
@@ -217,6 +198,18 @@ class DailyController extends Controller
         $item->threshold = $request->input('threshold');
         $item->place = $request->input('place');
         $item->category_id = $request->input('category_id');
+
+        
+        // 現在認証しているユーザーのIDを取得
+        $id = Auth::id();
+
+        // アップロードした画像を取得
+        $image_name = $request->file('image_name');
+
+        // // 画像名を取得
+        $name = $image_name;
+
+        
 
         $item->save();
 
@@ -304,17 +297,15 @@ class DailyController extends Controller
     */
     public function delete($item_id)
     {
-    
-    $item = Item::find($item_id);
+        $item = Item::find($item_id);
 
-    // ItemTagの削除
-    ItemTags::where('item_id', $item_id)->delete();
-    
-    // Itemの削除
-    Item::where('id', $item_id)->delete();
-    
-    // Tagの削除はしない。
-    return redirect('/')->with('success', '削除しました');
+        // ItemTagの削除
+        ItemTags::where('item_id', $item_id)->delete();
+        
+        // Itemの削除
+        Item::where('id', $item_id)->delete();
+        
+        // Tagの削除はしない。
+        return redirect('/')->with('success', '削除しました');
     }
 }
-

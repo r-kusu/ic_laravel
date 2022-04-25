@@ -1,6 +1,6 @@
 @extends("layouts.app")
 
-@section('title', $title)
+@section('title', '$title')
 
 @include("layouts.topbar", ['tags' => $tags, 'items' => $items])
 
@@ -24,14 +24,18 @@
 </tr>
 
 <tr class = "category">
-    <th scope="row">ジャンル</th>
+    <th scope="row">ジャンル<br><a class="btn btn-outline-primary btn-sm" href="{{ route('category') }}">ジャンル新規登録</a></th>
+    <div class="container"><div class="form-group">
     <td><p><select class="form-control" name="category_id">
         @foreach($categories as $category)
         <option value={{$category->id}}>
             {{$category->name}}
         </option>
         @endforeach
-    </select></p></td>    
+        </select></p>
+        
+    </td> 
+
 </tr>    
 
 <tr class= "">
