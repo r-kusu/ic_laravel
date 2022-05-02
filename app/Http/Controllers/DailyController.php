@@ -56,14 +56,16 @@ class DailyController extends Controller
             $image_name = $request->file('image_name');
 
             // 画像名を取得
-            $name = $image_name->getClientOriginalName();
+            //$name = $image_name->getClientOriginalName();
             
             // アップロードした画像のファイル名を取得
             // view側でファイル名をpostするようにしておく
             // $name = $request->get('image');
             // アップロードしたファイルを本番ディレクトリに公開
             //$image_name = '';
-            if($name) {
+            if($image_name) {
+                $name = $image_name->getClientOriginalName();
+
                 // アップロードした画像をstorage/public/imagesへと保存する
                 $tempfile = $image_name->storeAs('public/images', $name);
                 //  viewで表示するためのURL
