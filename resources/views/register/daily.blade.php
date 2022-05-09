@@ -1,6 +1,6 @@
 @extends("layouts.app")
 
-@section('title', '日用品登録')
+@section('title', '$title')
 
 @include("layouts.topbar", ['tags' => $tags, 'items' => $items])
 
@@ -13,7 +13,7 @@
 <tr class = "image_name">  
 <th>商品画像</th>
     <td>
-        <p><input class="form-control" type ="file" name="s_file" name="image_name"></p>
+        <p><input class="form-control" type ="file"  name="image_name"></p>
     </td>    
 </tr>
 
@@ -23,14 +23,18 @@
 </tr>
 
 <tr class = "category">
-    <th scope="row">ジャンル</th>
+    <th scope="row">ジャンル<br><a class="btn btn-outline-primary btn-sm" href="{{ route('category') }}">ジャンル新規登録</a></th>
+    <div class="container"><div class="form-group">
     <td><p><select class="form-control" name="category_id">
         @foreach($categories as $category)
         <option value={{$category->id}}>
             {{$category->name}}
         </option>
         @endforeach
-    </select></p></td>    
+        </select></p>
+        
+    </td> 
+
 </tr>    
 
 <tr class= "">

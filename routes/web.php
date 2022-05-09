@@ -38,7 +38,7 @@ Route::post('/daily/create',[App\Http\Controllers\DailyController::class, 'creat
 Route::post('/daily/create',[App\Http\Controllers\DailyController::class, 'create'])->name('createdaily');
 Route::get('/food',function () {return view('register.food');})->middleware('auth');
 
-Route::get('/editdaily/{itemid}', [App\Http\Controllers\DailyController::class, 'edit'])->middleware('auth');
+Route::get('/editdaily/{itemid}', [App\Http\Controllers\DailyController::class, 'edit'])->name('editdaily')->middleware('auth');
 Route::put('/editdaily/{itemid}/update', [App\Http\Controllers\DailyController::class, 'update'])->name('edit')->middleware('auth');
 Route::delete('/editdaily/{itemid}',[App\Http\Controllers\DailyController::class, 'delete'])->name('delete.editdaily')->middleware('auth');
 
@@ -60,8 +60,12 @@ Route::get('register/category', [App\Http\Controllers\CategoryController::class,
 Route::post('/category/create', [App\Http\Controllers\CategoryController::class, 'create'])->middleware('auth');
 Route::get('/list/{id}', [HomeController::class, 'show'])->name('list')->middleware('auth')->middleware('auth');
 Route::get('/shortagelist', [HomeController::class, 'shortageitem'])->name('shortagelist')->middleware('auth');
-Route::get('/search', [HomeController::class, 'itemsearch'])->name('search')->middleware('auth');
 
+// 検索結果
+// Route::get('/search', [HomeController::class, 'search'])->name('search')->middleware('auth');
+Route::get('/search',[HomeController::class,'searchresult'])->name('searchresult');
+
+// ログアウト
 Route::get('/logout',[LoginController::class,'logout'])->middleware('auth');
 
 // 会員情報編集画面

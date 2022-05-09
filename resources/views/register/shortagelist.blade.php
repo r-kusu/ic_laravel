@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title','買い物リスト')
+@section('title',$title)
 
 @include('layouts.head')
 
@@ -8,17 +8,21 @@
 
 @section('content')
 
-@foreach($shortageitems as $shortageitem)
-<div class="card mb-3" style="max-width: 400px;">
+@foreach($s_result as $shortageitem)
+<div class="item-card card m-2 d-inline-block">
     <div class="row g-0">
         <div class="col-md-4">
-            <img src="{{$shortageitem->image_name}}" alt="アイテム画像">
+            @if($shortageitem->image_name === null)
+            <img src="{{ asset('img/no_image_logo.png')}}"alt="アイテム画像" width="80px">
+            @else
+                <img src="{{$shortageitem->image_name}}" alt="アイテム画像" width="80px">
+            @endif
         </div>
         <div class="col-md-8">
             <div class="card-body">
-                <h5 class="card-title">{{$shortageitem->name}}</h5>
+                <h5 class="item-name card-title">{{$shortageitem->name}}</h5>
                 <div class="card-text">残り{{$shortageitem->stock}}個</div>
-                <a class="btn btn-danger" href="{{ url('/editdaily/{item_id}') }}" role="button">変更</a>
+                <a class="btn btn-danger" href="{{ url('/editdaily/'.$shortageitem->id) }}" role="button">変更</a>
             </div>
         </div>
     </div>

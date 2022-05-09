@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title','カテゴリーアイテム一覧')
+@section('title',$title)
 
 @include('layouts.head')
 
@@ -8,17 +8,23 @@
 
 @section('content')
 
-@foreach($listitem as $listitem)
-<div class="card mb-3" style="max-width: 400px;">
+@foreach($s_result as $item)
+<div class="item-card card m-2 d-inline-block">
     <div class="row g-0">
         <div class="col-md-4">
-            <img src="{{$listitem->image_name}}" alt="アイテム画像">
+            @if($item->image_name === null)
+                <img src="{{ asset('img/no_image_logo.png')}}"alt="アイテム画像" width="80px">
+            
+            @else
+                <img src="{{ asset('$item->image_name')}}" alt="アイテム画像" width="80px">
+            @endif
         </div>
         <div class="col-md-8">
             <div class="card-body">
-                <h5 class="card-title">{{$listitem->name}}</h5>
-                <div class="card-text">残り{{$listitem->stock}}個</div>
-                <a class="btn btn-danger" href="{{ url('/editdaily/{item_id}') }}" role="button">変更</a>
+                <h5 class="item-name card-title">{{$item->name}}</h5>
+                <div class="card-text">残り{{$item->stock}}個</div>
+                <a class="btn btn-danger" href="{{ url('/editdaily/'.$item->id) }}" role="button">変更</a>
+            </div>
         </div>
     </div>
 </div>

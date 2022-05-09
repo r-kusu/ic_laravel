@@ -1,34 +1,51 @@
-<!-- @extends('layouts.app')
+@extends('layouts.app')
 
-@section('title','検索結果一覧')
+@section('title',$title)
+
 @include('layouts.head')
 
 @include('layouts.topbar')
 
 @section('content')
-<div>
-    @if(!empty($message))
-    <div class="alert alert-primary" role="alert">{{ $message}}</div>
-    @endif -->
+<div  class="message">
+    @if(!empty($w_message))
+    <div>{{$w_message}}</div>
+    @endif
+    @if(!empty($c_message))
+    <div>{{$c_message}}</div>
+    @endif
+    @if(!empty($t_message))
+    <div>{{$t_message}}</div>
+    @endif
+    @if(!empty($p_message))
+    <div>{{$p_message}}</div>
+    @endif
+</div>
 
-    <!-- サーチ用の引数に設定変更要 -->
-    <!-- @if(isstet($results))
-    @foreach($results as $result)
-    <div class="card mb-3" style="max-width: 400px;">
+@foreach($s_result as $item)
+    @if ($item->deleted_at === null)
+    <div class="item-card card m-2 d-inline-block">
         <div class="row g-0">
             <div class="col-md-4">
-                <img src="{{$listitem->image_name}}" alt="アイテム画像">
+                @if($item->image_name === null)
+                    <img src="{{ asset('img/no_image_logo.png')}}" alt="アイテム画像" width="80px">
+                @else
+                    <img src="{{$item->image_name}}" alt="アイテム画像" width="80px">
+                @endif
             </div>
             <div class="col-md-8">
                 <div class="card-body">
-                    <h5 class="card-title">{{$listitem->name}}</h5>
-                    <div class="card-text">残り{{$listitem->stock}}個</div>
-                    <a class="btn btn-danger" href="{{ url('/editdaily/{item_id}') }}" role="button">変更</a>
+                    <h5 class="item-name card-title">{{$item->name}}</h5>
+                    <div class="card-text">残り{{$item->stock}}個</div>
+                    <a class="btn btn-danger" href="{{ url('/editdaily/'.$item->id) }}" role="button">変更</a>
                 </div>
             </div>
         </div>
     </div>
-    @endforeach
     @endif
-</div>
-@endsection -->
+@endforeach
+
+@if($s_result->isEmpty())
+<div>該当のアイテムはありません</div>
+@endif
+@endsection

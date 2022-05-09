@@ -12,37 +12,37 @@
       </div>
       <div class="offcanvas-body">
 
-        <form method="get" action="">
+        <form method="get" action="{{route('searchresult')}}">
           <input class="form-select" aria-label="Default select example" name="keyword" type="text" placeholder="キーワードを入力" value="">
 
           <label for="" class="select-label pb-2 pt-3">カテゴリー</label>
           <select class="form-select" aria-label="Default select example" name="category">
-            <option value="">未選択</option>
+            <option selected="selected" value="">未選択</option>
             @foreach($categories as $category)
             <option value="{{$category->id}}">{{$category->name}}</option>
             @endforeach
-            <!-- @foreach($categories as $key => $value)
-            <option value="{{$category->id}}" {{isset($params['category']) && $params['category'] == $value ? 'selected':null}}>{{$value->name}}</option>
-            @endforeach -->
-
           </select>
 
           <label for="" class="select-label pb-2 pt-3">タグ</label>
           <select class="form-select" aria-label="Default select example" name="tag">
-            <option value="">未選択</option>
+            <option selected="selected" value="">未選択</option>
             @foreach($tags as $tag)
             <option value="{{$tag->id}}">{{$tag->tag_name}}</option>
             @endforeach
           </select>
 
           <label for="" class="select-label pb-2 pt-3">保管場所</label>
-          <select class="form-select" aria-label="Default select example" name="place">
+          <select class="form-select" aria-label="Default select example" name="place" value="">
             <option value="">未選択</option>
+            <?php $temp = []; ?>
             @foreach($items as $item)
-            <option value="{{$item->id}}">{{$item->place}}</option>
+              @if (!in_array($item->place,$temp))
+                <option value="{{$item->place}}">{{$item->place}}</option>
+                <?php array_push($temp, $item->place); ?>
+              @endif
             @endforeach
           </select>
-          <input class="btn btn-danger" type="submit" value="検索">
+          <button class="btn btn-danger" type="submit">検索</button>
         </form>
       </div>
 
@@ -52,7 +52,8 @@
     <a href="{{ url('/') }}" class="home-icon btn btn-info" role="button"><i class="bi bi-house-door"></i></a>
 
     <!-- 閲覧中のカテゴリー名 -->
-    <div class="navbar-brand fs-4">日用品管理</div>
+    <!-- <div class="navbar-brand">{{$category->name}}</div> -->
+    <div class="navbar-brand fs-4">{{ $title }}</div>
 
     <!-- 新規登録 -->
     <a href="{{ url('/daily') }}" class="create-icon btn btn-info" role="button"><i class="bi bi-pencil-square"></i></a>
