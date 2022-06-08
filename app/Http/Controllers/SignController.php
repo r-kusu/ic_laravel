@@ -16,7 +16,8 @@ class SignController extends Controller
         // ->get();
 
         // viewを返す(compactでviewに$categoriesを渡す)
-            return view('home');
+        // test
+        return view('home');
     }
 
     /**
