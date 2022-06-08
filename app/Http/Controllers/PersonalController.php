@@ -19,9 +19,10 @@ class PersonalController extends Controller
         $user = $request->user();
         $tags = $user->tagsearch();
         $categories = $user->categorysearch();
+        $title = 'ユーザー編集画面';
         
         return view('personal-info',
-            compact('user', 'categories','tags','items'
+            compact('user', 'categories','tags','items','title'
         ));
     }
 
