@@ -72,7 +72,7 @@
             @foreach($categories as $category)
             <li class="list-group-item"><a href="{{route('list',['id'=>$category->id])}}">{{$category->name}}</a></li>
             @endforeach
-            <li class="list-group-item"><a href="#">会員情報</a></li>
+            <li class="list-group-item"><a href="/personal-info/{id}">会員情報</a></li>
             <li class="list-group-item"><a href="/logout">ログアウト</a></li>
           </ul>
         </div>
