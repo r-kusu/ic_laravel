@@ -1,6 +1,6 @@
 @extends("layouts.app")
 
-@section('title','$title')
+@section('title','カテゴリ登録')
 
 @include("layouts.topbar",['categories' => $categories])
 
