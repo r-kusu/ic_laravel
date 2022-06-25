@@ -2,8 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-use App\HTTP\Controllers\HomeController;
-use App\HTTP\Controllers\DailyController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\DailyController;
 use App\Http\Controllers\Auth\LoginController;
 
 /*

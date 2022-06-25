@@ -52,7 +52,6 @@
     <a href="{{ url('/') }}" class="home-icon btn btn-info" role="button"><i class="bi bi-house-door"></i></a>
 
     <!-- 閲覧中のカテゴリー名 -->
-    <!-- <div class="navbar-brand">{{$category->name}}</div> -->
     <div class="navbar-brand fs-4">{{ $title }}</div>
 
     <!-- 新規登録 -->
