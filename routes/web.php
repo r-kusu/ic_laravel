@@ -43,22 +43,22 @@ Route::put('/editdaily/{itemid}/update', [App\Http\Controllers\DailyController::
 Route::delete('/editdaily/{itemid}',[App\Http\Controllers\DailyController::class, 'delete'])->name('delete.editdaily')->middleware('auth');
 
 //検索ボタンを押すとコントローラのindexメソッドを実行します
-Route::get('/daily/create',[App\Http\Controllers\DailyController::class, 'create'])->name('create');
+Route::get('/daily/create',[App\Http\Controllers\DailyController::class, 'create'])->name('create')->middleware('auth');
 
-Route::get('/editdaily/{itemid}', [App\Http\Controllers\DailyController::class, 'edit']);
+Route::get('/editdaily/{itemid}', [App\Http\Controllers\DailyController::class, 'edit'])->middleware('auth');
 
-Route::put('/editdaily/{itemid}/update', [App\Http\Controllers\DailyController::class, 'update'])->name('edit');
+Route::put('/editdaily/{itemid}/update', [App\Http\Controllers\DailyController::class, 'update'])->name('edit')->middleware('auth');
 
-Route::delete('/editdaily/{itemid}',[App\Http\Controllers\DailyController::class, 'delete'])->name('delete.editdaily');
+Route::delete('/editdaily/{itemid}',[App\Http\Controllers\DailyController::class, 'delete'])->name('delete.editdaily')->middleware('auth');
 
 //検索ボタンを押すとコントローラのindexメソッドを実行します
-Route::get('/daily/create',[App\Http\Controllers\DailyController::class, 'create'])->name('create');
+Route::get('/daily/create',[App\Http\Controllers\DailyController::class, 'create'])->name('create')->middleware('auth');
 
 //カテゴリー画面
-Route::get('register/category', [App\Http\Controllers\CategoryController::class, 'index'])->name('category');
+Route::get('register/category', [App\Http\Controllers\CategoryController::class, 'index'])->name('category')->middleware('auth');
 
-Route::post('/category/create', [App\Http\Controllers\CategoryController::class, 'create']);
-Route::get('/list/{id}', [HomeController::class, 'show'])->name('list')->middleware('auth');
+Route::post('/category/create', [App\Http\Controllers\CategoryController::class, 'create'])->middleware('auth');
+Route::get('/list/{id}', [HomeController::class, 'show'])->name('list')->middleware('auth')->middleware('auth');
 Route::get('/shortagelist', [HomeController::class, 'shortageitem'])->name('shortagelist')->middleware('auth');
 
 // 検索結果
@@ -67,3 +67,10 @@ Route::get('/search',[HomeController::class,'searchresult'])->name('searchresult
 
 // ログアウト
 Route::get('/logout',[LoginController::class,'logout'])->middleware('auth');
+
+// 会員情報編集画面
+Route::post('/personal-info/update/{id}', [App\Http\Controllers\PersonalController::class, "update"])->name('personal-update');
+Route::post('/personal-info/update-pass/{id}', [App\Http\Controllers\PersonalController::class, "updatepass"])->name('personal-update-pass');
+
+Route::get('/personal-info/delete/{id}', [App\Http\Controllers\PersonalController::class, "delete"])->name('personal-delete');
+Route::get('/personal-info/{id}', [App\Http\Controllers\PersonalController::class, "index"])->name('personal-info');

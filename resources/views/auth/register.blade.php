@@ -21,7 +21,7 @@
 
                                 @error('name')
                                     <span class="invalid-feedback-k" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                        <strong style="color: red;">{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
@@ -35,7 +35,7 @@
 
                                 @error('email')
                                     <span class="invalid-feedback-k" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                        <strong style="color: red;" >{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
@@ -45,11 +45,11 @@
                             <label for="password" class="col-md-4-k col-form-label-k text-md-right">{{ __('パスワード') }}</label>
                             <label for="password" class="col-md-5-k col-form-label-k text-md-right">{{ __('（英数字混在6～32文字）') }}</label>
                             <div class="col-md-6-k">
-                                <input id="password" type="password" class="form-control-k @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                                <input id="password" name="password" type="password" class="form-control-k @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
 
                                 @error('password')
                                     <span class="invalid-feedback-k" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                        <strong style="color: red;">{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
@@ -59,7 +59,12 @@
                             <label for="password-confirm" class="col-md-4-k col-form-label-k text-md-right">{{ __('パスワード確認') }}</label>
 
                             <div class="col-md-6-k">
-                                <input id="password-confirm" type="password" class="form-control-k" name="password_confirmation" required autocomplete="new-password">
+                                <input id="password-confirm" name="password-confirm" type="password" class="form-control-k" name="password_confirmation" required autocomplete="new-password">
+                                @error('password-confirm')
+                                    <span class="invalid-feedback-k" role="alert">
+                                        <strong style="color: red;">{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
 

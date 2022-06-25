@@ -1,12 +1,11 @@
 @extends("layouts.app")
 
-@section('title', '$title')
+@section('title', '登録')
 
 @include("layouts.topbar", ['tags' => $tags, 'items' => $items])
 
 @section("content")
 
-@if( Auth::check() )
 <form action="/daily/create" method="post" enctype="multipart/form-data">
 @csrf
 <div class="form-group">
@@ -93,5 +92,4 @@
 </div>
 </table>
 </form>
-@endif
 @endsection

@@ -69,7 +69,7 @@
                                 @endif
                             </div>
                         </form>
-                        <div class="first-k register-k"><a class="btn-k first-k register-k"  href="/register">会員登録する</a></div>
+                        <div class="first-k register-k"><a class="btn-k first-k register-k"  href="{{asset('/register')}}">会員登録する</a></div>
                     </div>
                     <div class="his-k text-muted">©2022</div>
                 </div>

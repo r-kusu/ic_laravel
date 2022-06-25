@@ -16,14 +16,8 @@ class SignController extends Controller
         // ->get();
 
         // viewを返す(compactでviewに$categoriesを渡す)
-
-        if ( Auth::check() ){
-            // ログイン済みの時の処理
-            return view('home');
-        } else {
-            // ログインしていないときの処理
-            return redirect( 'login' );
-        }
+        // test
+        return view('home');
     }
 
     /**
@@ -36,7 +30,7 @@ class SignController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|max:50', 
-            'email' => 'required|max:254',
+            'email' => 'required|max:254|unique:users,email',
             'password' => 'required|min:6|max:32',
         ]);
 
@@ -50,3 +44,5 @@ class SignController extends Controller
         return redirect('/login');
     }
 }
+
+
