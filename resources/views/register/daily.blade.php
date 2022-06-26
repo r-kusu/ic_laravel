@@ -6,7 +6,7 @@
 
 @section("content")
 
-<form action="/daily/create" method="post" enctype="multipart/form-data">
+<form action="{{ route('create.daily') }}" method="post" enctype="multipart/form-data">
 @csrf
 <div class="form-group">
 <table class="table table-striped">
