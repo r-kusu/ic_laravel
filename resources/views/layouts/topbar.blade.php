@@ -72,7 +72,7 @@
             <li class="list-group-item"><a href="{{route('list',['id'=>$category->id])}}">{{$category->name}}</a></li>
             @endforeach
             <li class="list-group-item"><a href="{{route('personal-info',['id'])}}">会員情報</a></li>
-            <li class="list-group-item"><a href="/logout">ログアウト</a></li>
+            <li class="list-group-item"><a href="{{ url('/logout') }}">ログアウト</a></li>
           </ul>
         </div>
       </div>
