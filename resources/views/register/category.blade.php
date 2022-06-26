@@ -6,7 +6,7 @@
 
 
 @section("content")
-<form action="/category/create" method="post" enctype="multipart/form-data">
+<form action="{{ route('category.create') }}" method="post" enctype="multipart/form-data">
 @csrf
 <div class="container">
     <table class="table table-striped">

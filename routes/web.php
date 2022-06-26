@@ -57,7 +57,7 @@ Route::get('/daily/create',[App\Http\Controllers\DailyController::class, 'create
 //カテゴリー画面
 Route::get('register/category', [App\Http\Controllers\CategoryController::class, 'index'])->name('category')->middleware('auth');
 
-Route::post('/category/create', [App\Http\Controllers\CategoryController::class, 'create'])->middleware('auth');
+Route::post('/category/create', [App\Http\Controllers\CategoryController::class, 'create'])->name('category.create')->middleware('auth');
 Route::get('/list/{id}', [HomeController::class, 'show'])->name('list')->middleware('auth')->middleware('auth');
 Route::get('/shortagelist', [HomeController::class, 'shortageitem'])->name('shortagelist')->middleware('auth');
 
