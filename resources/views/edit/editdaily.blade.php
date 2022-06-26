@@ -7,7 +7,7 @@
 
 @section("content")
 
-<form action="/editdaily/{{ $item->id }}/update" method="post" enctype="multipart/form-data">
+<form action="{{ route('edit', $item->id) }}" method="post" enctype="multipart/form-data">
 @csrf
 @method('PUT')
 <table class="table table-striped">
